@@ -12,13 +12,11 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppUserRole> _roleManager;
-        private readonly ECommerceContext _context;
 
-        public UserController(UserManager<AppUser> userManager,RoleManager<AppUserRole> roleManager, ECommerceContext context)
+        public UserController(UserManager<AppUser> userManager,RoleManager<AppUserRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _context = context;
         }
         public async Task<IActionResult> Index()
         {

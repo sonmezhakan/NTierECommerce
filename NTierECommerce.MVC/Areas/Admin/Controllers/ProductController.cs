@@ -130,7 +130,6 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                     UpdatedDate = DateTime.Now,
                     //Görsel zorunlu oluğu için default olarak bir resim linki aşağıda ekleniyor
                     ImagePath = "https://media.licdn.com/dms/image/C4D0BAQEAGXVsnKe6Uw/company-logo_200_200/0/1633955568753/galatasaray_logo?e=2147483647&v=beta&t=qAEvuY7yW6LNJyFx2hqYmhuKxeaXmU0uZJRuUngLQeU"
-
                 };
 
                 await _productRepository.Update(product);
