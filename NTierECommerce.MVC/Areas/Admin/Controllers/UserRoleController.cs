@@ -106,7 +106,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUserRoleVM appUserRoleVM)
         {
-            //todo: bir kere güncelleme işlemi yapılınca otomatik olarak veritabanındaki ConcurrencyStamp propertysini dolduruyor. Bu yüzden 2.sefer güncelleme işlemi yapılamıyorEv
+            //todo: bir kere güncelleme işlemi yapılınca otomatik olarak veritabanındaki ConcurrencyStamp propertysini dolduruyor. Bu yüzden 2.sefer güncelleme işlemi yapılamıyor
             if(ModelState.IsValid)
             {
                 AppUserRole appUserRole = new AppUserRole()
