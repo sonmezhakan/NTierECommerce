@@ -1,4 +1,6 @@
-﻿using NTierECommerce.BLL.Abstracts;
+﻿using Microsoft.EntityFrameworkCore;
+using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Concretes
 {
-    public class CategoryRepository : ICategoryReposiyory
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly IRepository<Category> _repository;
 
@@ -55,6 +57,11 @@ namespace NTierECommerce.BLL.Concretes
         public async Task<Category> GetById(int id)
         {
             return await _repository.GetById(id);
+        }
+
+        public async Task<string> IsActiveActive(Category category)
+        {
+            return await _repository.IsActiveActive(category);
         }
 
         public async Task<string> Update(Category category)

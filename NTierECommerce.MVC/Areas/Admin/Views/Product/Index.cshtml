@@ -1,0 +1,55 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model List<ProductListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Product List</h1>
+
+<div class="row mx-4">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Category Name</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Statu</th>
+            <th>
+                <a asp-controller="Product" asp-action="Add" class="btn btn-primary">Ekle</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.CategoryName</td>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice</td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <span class="right badge badge-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="right badge badge-danger">Passive</span>
+                    }
+
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Detay</a>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="btn btn-warning">Güncelle</a>
+                    <a asp-action="IsActivePassive" asp-route-id="@item.ID" class="btn btn-warning">Pasif</a>
+                    <a asp-action="IsActiveActive" asp-route-id="@item.ID" class="btn btn-success">Aktif</a>
+                    <a asp-action="Destroy" asp-route-id="@item.ID" class="btn btn-danger">Kalıcı Sil</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

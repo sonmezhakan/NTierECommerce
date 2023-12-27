@@ -1,0 +1,31 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model AppUserRoleVM
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Add</h1>
+
+<div class="row mx-4">
+    <div class="col-md-4">
+        <div class="alert">
+            @if (TempData["Error"] != null)
+            {
+                <span>@TempData["Error"]</span>
+            }
+        </div>
+        <form method="post">
+            <div>
+                <label>Role Name</label>
+                <input class="form-control" type="text" asp-for="Name" />
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea class="form-control" type="text" asp-for="Description"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Ekle</button>
+        </form>
+    </div>
+
+</div>

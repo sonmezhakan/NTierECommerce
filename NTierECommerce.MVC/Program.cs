@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using Microsoft.EntityFrameworkCore;
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.BLL.Concretes;
 using NTierECommerce.DAL.Context;
+using NTierECommerce.Entities.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +15,12 @@ builder.Services.AddControllersWithViews();
 //AddDbContext
 builder.Services.AddDbContext<ECommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//IdentityInjection
+builder.Services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<ECommerceContext>();
+
 //AddRepositories
-
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-
-builder.Services.AddScoped<ICategoryReposiyory, CategoryRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
@@ -36,8 +40,57 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoint =>
+{
+    //Admin Route
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+        );
+    });
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}"
+        );
+    });
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
+        );
+    });
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=User}/{action=Index}/{id?}"
+        );
+    });
+
+
+    //Custom Route
+    //Buraya custom route tanýmlanacak. Örneðin ürün detaylarý gösterilirken url'de olabildðince seo'a uygun bir route oluþturulacak.
+
+
+    //Default Route
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
+    });
+
+
+});
+
+
+//Custom Route
 
 app.Run();

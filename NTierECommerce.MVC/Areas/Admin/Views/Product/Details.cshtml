@@ -1,0 +1,40 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model ProductDetailVM
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div class="row mx-4">
+    <div class="col-md-6">
+        <div>
+            <label>ID</label>
+            <input class="form-control" type="text" asp-for="@Model.ID" />
+        </div>
+        <div>
+            <label>Category Name</label>
+            <input class="form-control" type="text" asp-for="@Model.CategoryName" />
+        </div>
+        <div>
+            <label>Product Name</label>
+            <input class="form-control" type="text" asp-for="@Model.ProductName" />
+        </div>
+        <div>
+            <label>Unit Price</label>
+            <input class="form-control" type="text" asp-for="@Model.UnitPrice" />
+        </div>
+        <div>
+            <label>Statu</label><br />
+            @if (Model.IsActive == true)
+            {
+                <span class="right badge badge-success">Active</span>
+            }
+            else
+            {
+                <span class="right badge badge-danger">Passive</span>
+            }
+        </div>
+    </div>
+</div>

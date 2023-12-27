@@ -9,9 +9,9 @@ namespace NTierECommerce.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICategoryReposiyory _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public HomeController(ILogger<HomeController> logger, ICategoryReposiyory categoryRepository)
+        public HomeController(ILogger<HomeController> logger, ICategoryRepository categoryRepository)
         {
             _logger = logger;
             _categoryRepository = categoryRepository;

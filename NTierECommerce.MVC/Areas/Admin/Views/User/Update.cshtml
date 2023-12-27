@@ -1,0 +1,43 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model UserRegisterVM
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Update</h1>
+
+<div class="row mx-4">
+    <div class="col-md-4">
+        <div class="alert">
+            @if (TempData["Error"] != null)
+            {
+                <span>@TempData["Error"]</span>
+            }
+        </div>
+        <form method="post">
+            <div>
+                <label>User Name</label>
+                <input class="form-control" type="text" asp-for="@Model.UserName" />
+            </div>
+            <div>
+                <label>E-Mail</label>
+                <input class="form-control" type="email" asp-for="@Model.Email" />
+            </div>
+            <div>
+                <label>Password</label>
+                <input class="form-control" type="password" asp-for="@Model.Password"  disabled/>
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input class="form-control" type="number" asp-for="@Model.PhoneNumber" />
+            </div>
+            <div>
+                <label>Address</label>
+                <textarea class="form-control" type="text" asp-for="@Model.Address"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Güncelle</button>
+        </form>
+    </div>
+
+</div>

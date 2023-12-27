@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Abstracts
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository:IRepository<Product>
     {
-
+        
     }
 }

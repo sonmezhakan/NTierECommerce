@@ -1,0 +1,39 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model ProductVM
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Update</h1>
+
+<div class="row mx-4">
+    <div class="col-md-4">
+        <div class="alert">
+            @if (TempData["Error"] != null)
+            {
+                <span>@TempData["Error"]</span>
+            }
+        </div>
+        <form method="post">
+            <div>
+                <label>ID</label>
+                <input class="form-control" type="number" asp-for="@Model.ID" disabled />
+            </div>
+            <div>
+                <label>Category ID</label>
+                <input class="form-control" type="number" asp-for="@Model.CategoryId" />
+            </div>
+            <div>
+                <label>Product Name</label>
+                <input class="form-control" type="text" asp-for="@Model.ProductName" />
+            </div>
+            <div>
+                <label>Unit Price</label>
+                <input class="form-control" type="number" asp-for="@Model.UnitPrice" />
+            </div>
+            <button class="btn btn-primary" type="submit">Güncelle</button>
+        </form>
+    </div>
+
+</div>

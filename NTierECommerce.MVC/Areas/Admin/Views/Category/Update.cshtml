@@ -1,0 +1,31 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model CategoryVM
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Update</h1>
+
+<div class="row mx-4">
+    <div class="col-md-6">
+        <form method="post">
+            <div>
+                <label>ID</label>
+                <input class="form-control" type="text" asp-for="@Model.ID" disabled />
+            </div>
+            <div>
+                <label>Category Name</label>
+                <input class="form-control" type="text" asp-for="@Model.CategoryName" />
+            </div>
+            <div>
+                <label>Description</label>
+                <input class="form-control" type="text" asp-for="@Model.Description" />
+            </div>
+            
+            <div class="my-3">
+                <button class="btn btn-primary" type="submit">Güncelle</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -30,6 +30,8 @@ namespace NTierECommerce.BLL.Abstracts
         //Delete: Veri silinmeyecek, verinin durumu "Deleted" olarak güncellenecek.
         Task<string> Delete(T entity);
 
+        //IsActiveActive: Pasif yapılan nesneyi tekrardan aktifleştirme
+        Task<string> IsActiveActive(T entity);
 
         
     }

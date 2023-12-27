@@ -1,4 +1,5 @@
 ﻿using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,11 @@ namespace NTierECommerce.BLL.Concretes
         public async Task<Product> GetById(int id)
         {
             return await _repository.GetById(id);
+        }
+
+        public async Task<string> IsActiveActive(Product product)
+        {
+            return await _repository.IsActiveActive(product);
         }
 
         public async Task<string> Update(Product product)

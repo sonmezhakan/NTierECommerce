@@ -1,0 +1,50 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model List<UserListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>User List</h1>
+
+<div class="row mx-4">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>User Name</th>
+                <th>E-mail</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>
+                    <a asp-controller="User" asp-action="Register" class="btn btn-primary">Ekle</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Address</td>
+                    <td>@foreach (var role in item.Roles)
+                        {
+                            <a class="btn btn-primary" asp-controller="User" asp-action="RoleUpdate" asp-route-userid="@item.ID" asp-route-roleid="@role.Id">@role.Name</a>
+                        }
+                        
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Detay</a>
+                        <a asp-action="Update" asp-route-id="@item.ID" class="btn btn-warning">Güncelle</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Kalıcı Sil</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

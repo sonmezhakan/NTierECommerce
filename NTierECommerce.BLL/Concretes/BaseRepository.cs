@@ -21,7 +21,6 @@ namespace NTierECommerce.BLL.Concretes
             _entities = _context.Set<T>();
         }
 
-
         public async Task<string> Create(T entity)
         {
             try
@@ -111,6 +110,28 @@ namespace NTierECommerce.BLL.Concretes
         public async Task<T> GetById(int id)
         {
             return await _entities.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<string> IsActiveActive(T entity)
+        {
+            try
+            {
+                var original = await _entities.FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+                original.Status = Entities.Enums.DataStatus.Updated;
+                original.IsActive = true;
+                _context.Entry(original).CurrentValues.SetValues(entity);
+
+                _context.SaveChanges();
+
+                return "Pasife çekildi!";
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
         }
 
         public async Task<string> Update(T entity)//Adidas

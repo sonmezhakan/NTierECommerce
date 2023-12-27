@@ -54,7 +54,7 @@ namespace NTierECommerce.DAL.Context
         {
 
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer("server=DESKTOP-J4PTH70;database=ECommerceDB;uid=sa;pwd=123;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("server=DESKTOP-S8RDFAU;database=ECommerceDBDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
             base.OnConfiguring(optionsBuilder);
         }
