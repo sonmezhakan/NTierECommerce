@@ -55,9 +55,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                 Category category = new Category() { 
                 CategoryName = categoryVM.CategoryName,
                 Description = categoryVM.Description,
-                CreatedComputerName = "Test",
-                CreatedIpAddress = "localhost",
-                CreatedDate = DateTime.Now
+                IsActive = categoryVM.IsActive
                 };
 
                 await _categoryRepository.Create(category);
@@ -87,7 +85,19 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            return View(Details(id));
+			var getCategory = await GetCategory(id);
+			if (getCategory != null)
+			{
+				CategoryVM categoryVM = new CategoryVM()
+				{
+					ID = getCategory.Id,
+					CategoryName = getCategory.CategoryName,
+					Description = getCategory.Description,
+					IsActive = getCategory.IsActive
+				};
+				return View(categoryVM);
+			}
+			return View();
         }
 
         [HttpPost]
@@ -101,10 +111,6 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                     CategoryName = categoryVM.CategoryName,
                     Description = categoryVM.Description,
                     IsActive = categoryVM.IsActive,
-                    Status = Entities.Enums.DataStatus.Updated,
-                    UpdatedComputerName = "Test Updated",
-                    UpdatedIpAddress = "localhost updated",
-                    UpdatedDate = DateTime.Now
                 };
                 await _categoryRepository.Update(category);
             }
@@ -128,7 +134,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Destroy(int id)
         {
-            _categoryRepository.DestroyData(await GetCategory(id));
+           await _categoryRepository.DestroyData(await GetCategory(id));
 
             return RedirectToAction("Index", "Category");
         }

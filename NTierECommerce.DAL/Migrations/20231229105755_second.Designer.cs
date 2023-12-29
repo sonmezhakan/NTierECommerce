@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NTierECommerce.DAL.Context;
 
@@ -11,9 +12,11 @@ using NTierECommerce.DAL.Context;
 namespace NTierECommerce.DAL.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    partial class ECommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20231229105755_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,11 +295,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 1,
                             CategoryName = "Giyim",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(6497),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(2676),
                             CreatedIpAddress = "tanımsız",
                             Description = "Yazlık, kışlık, renkli, renksiz giyim ürünleri",
                             IsActive = true,
-                            MasterId = new Guid("2bb32ff4-69bf-4349-a81a-28820430d992"),
+                            MasterId = new Guid("e82e6b42-e54e-4ad0-a23f-f380a7dc0e36"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -306,11 +309,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 2,
                             CategoryName = "Teknoloji",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(6557),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(2772),
                             CreatedIpAddress = "tanımsız",
                             Description = "Tablet, Telefon, bilgisayar",
                             IsActive = true,
-                            MasterId = new Guid("8183aad3-b255-4838-b56c-48cc671e5aed"),
+                            MasterId = new Guid("6a2f9639-6706-4afb-906b-3c718265b505"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -320,11 +323,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 3,
                             CategoryName = "Kozmetik",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(6558),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(2774),
                             CreatedIpAddress = "tanımsız",
                             Description = "parfüm, ruj, falan filan",
                             IsActive = true,
-                            MasterId = new Guid("d0c9b6a3-88dc-447c-b532-fb72e6f2425c"),
+                            MasterId = new Guid("3618bad7-9e25-480e-b7b8-e32d4563fb17"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -401,11 +404,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(8292),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(4492),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/113/550/110000060380106.jpg",
                             IsActive = true,
-                            MasterId = new Guid("b6f2d169-0149-49f1-a81e-1a35eb447ee1"),
+                            MasterId = new Guid("d3945707-d5ac-4b75-855b-2580b10d2ac4"),
                             ProductName = "Nike Airmax",
                             Status = 0,
                             UnitPrice = 4000m,
@@ -418,11 +421,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 2,
                             CategoryId = 2,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(8302),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(4505),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/498/550/110000549694124.jpg",
                             IsActive = true,
-                            MasterId = new Guid("57fd2cc0-46f2-4f0a-89fd-32ca6fd0aeb9"),
+                            MasterId = new Guid("956eaffa-ac34-4170-a602-646e3a86681c"),
                             ProductName = "Lenovo",
                             Status = 0,
                             UnitPrice = 30000m,
@@ -435,11 +438,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 3,
                             CategoryId = 3,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2023, 12, 29, 17, 7, 39, 45, DateTimeKind.Local).AddTicks(8304),
+                            CreatedDate = new DateTime(2023, 12, 29, 13, 57, 55, 432, DateTimeKind.Local).AddTicks(4507),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/416/550/110000445267488.jpg",
                             IsActive = true,
-                            MasterId = new Guid("8fd73054-1203-4346-9cb2-73d696dd1b81"),
+                            MasterId = new Guid("1cd312d9-061f-4620-bc01-fab4bed7700a"),
                             ProductName = "MAC Ruj",
                             Status = 0,
                             UnitPrice = 2000m,
@@ -505,7 +508,7 @@ namespace NTierECommerce.DAL.Migrations
                     b.HasOne("NTierECommerce.Entities.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");

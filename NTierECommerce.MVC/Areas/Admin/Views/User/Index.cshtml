@@ -31,10 +31,23 @@
                     <td>@item.Email</td>
                     <td>@item.PhoneNumber</td>
                     <td>@item.Address</td>
-                    <td>@foreach (var role in item.Roles)
+                    <td>
+                        @for (int i = 0; i < item.Roles.Count; i++)
                         {
-                            <a class="btn btn-primary" asp-controller="User" asp-action="RoleUpdate" asp-route-userid="@item.ID" asp-route-roleid="@role.Id">@role.Name</a>
+                            if(item.MyRoles.Count > i)
+                            {
+                                if (item.MyRoles[i] == item.Roles[i].Name)
+                                {
+                                    <a class="btn btn-success">@item.MyRoles[i]</a>
+                                }
+                                
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" asp-controller="User" asp-action="RoleUpdate" asp-route-userid="@item.ID" asp-route-roleid="@item.Roles[i].Id">@item.Roles[i].Name</a>
+                            }
                         }
+                        
                         
                     </td>
                     <td>

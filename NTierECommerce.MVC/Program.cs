@@ -5,23 +5,25 @@ using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.BLL.Concretes;
 using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
+using NTierECommerce.IOC.DependencyResolvers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Dependency Resolvers
 
-//AddDbContext
-builder.Services.AddDbContext<ECommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//DbContext
+builder.Services.AddECommerceDb();
+
 
 //IdentityInjection
 builder.Services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<ECommerceContext>();
 
 //AddRepositories
-builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddRepositoryService();
 
 var app = builder.Build();
 

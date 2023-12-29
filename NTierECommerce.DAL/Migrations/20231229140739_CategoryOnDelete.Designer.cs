@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NTierECommerce.DAL.Context;
 
@@ -11,9 +12,11 @@ using NTierECommerce.DAL.Context;
 namespace NTierECommerce.DAL.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    partial class ECommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20231229140739_CategoryOnDelete")]
+    partial class CategoryOnDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

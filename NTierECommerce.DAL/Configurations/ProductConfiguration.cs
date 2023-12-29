@@ -18,7 +18,7 @@ namespace NTierECommerce.DAL.Configurations
             builder
                 .HasOne(x => x.Category)
                 .WithMany(x => x.Products)
-                .HasForeignKey(x => x.CategoryId);
+                .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict);
 
             //Properties
             builder.Property(x => x.ProductName).HasMaxLength(255);

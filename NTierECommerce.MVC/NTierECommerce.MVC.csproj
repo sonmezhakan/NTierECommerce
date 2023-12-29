@@ -13,8 +13,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NTierECommerce.BLL\NTierECommerce.BLL.csproj" />
+    <ProjectReference Include="..\NTierECommerce.Common\NTierECommerce.Common.csproj" />
     <ProjectReference Include="..\NTierECommerce.DAL\NTierECommerce.DAL.csproj" />
     <ProjectReference Include="..\NTierECommerce.Entities\NTierECommerce.Entities.csproj" />
+    <ProjectReference Include="..\NTierECommerce.IOC\NTierECommerce.IOC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\category\" />
+    <Folder Include="wwwroot\images\user\" />
+    <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
 </Project>

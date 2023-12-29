@@ -11,6 +11,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>Image</th>
             <th>#</th>
             <th>Category Name</th>
             <th>Product Name</th>
@@ -25,6 +26,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <img src="/images/product/@item.ImagePath" alt="product_image" width="48px" height="48px" />
+                </td>
                 <td>@item.ID</td>
                 <td>@item.CategoryName</td>
                 <td>@item.ProductName</td>

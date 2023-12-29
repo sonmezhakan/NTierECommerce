@@ -26,6 +26,8 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                 Name = x.Name
             }).ToList();
 
+            
+
             var userList = _userManager.Users.Select(x => new AppUser
             {
                 Id = x.Id,
@@ -39,12 +41,15 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 
             foreach (var item in userList)
             {
+                var getMyRoles = await _userManager.GetRolesAsync(item);
+
                 UserListVM userListVM = new UserListVM();
                 userListVM.ID = item.Id;
                 userListVM.UserName = item.UserName;
                 userListVM.Email = item.Email;
                 userListVM.PhoneNumber = item.PhoneNumber;
                 userListVM.Address = item.Address;
+                userListVM.MyRoles = getMyRoles.ToList();
                 userListVM.Roles = getRoles;
 
                 list.Add(userListVM);

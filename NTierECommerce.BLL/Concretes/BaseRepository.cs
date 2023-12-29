@@ -5,9 +5,9 @@ using NTierECommerce.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace NTierECommerce.BLL.Concretes
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
@@ -25,6 +25,10 @@ namespace NTierECommerce.BLL.Concretes
         {
             try
             {
+                entity.CreatedDate = DateTime.Now;
+                entity.CreatedComputerName = Environment.MachineName;
+                entity.CreatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+
                 await _entities.AddAsync(entity);
                 _context.SaveChanges();
 
@@ -44,7 +48,11 @@ namespace NTierECommerce.BLL.Concretes
                 var original = await _entities.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
                 original.Status = Entities.Enums.DataStatus.Deleted;
-                original.IsActive = false;
+				original.UpdatedDate = DateTime.Now;
+				original.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+				original.UpdatedComputerName = Environment.MachineName;
+
+				original.IsActive = false;
                 _context.Entry(original).CurrentValues.SetValues(entity);
 
                 _context.SaveChanges();
@@ -97,7 +105,6 @@ namespace NTierECommerce.BLL.Concretes
 
         public IEnumerable<T> GetAllActive()
         {
-            //return _entities.AsEnumerable();
             return _entities.Where(x => x.IsActive == true).ToList();
 
         }
@@ -118,8 +125,11 @@ namespace NTierECommerce.BLL.Concretes
             {
                 var original = await _entities.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-                original.Status = Entities.Enums.DataStatus.Updated;
-                original.IsActive = true;
+				original.Status = Entities.Enums.DataStatus.Updated;
+				original.UpdatedDate = DateTime.Now;
+				original.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+				original.UpdatedComputerName = Environment.MachineName;
+				original.IsActive = true;
                 _context.Entry(original).CurrentValues.SetValues(entity);
 
                 _context.SaveChanges();
@@ -143,8 +153,8 @@ namespace NTierECommerce.BLL.Concretes
 
                 updated.Status = Entities.Enums.DataStatus.Updated;
                 updated.UpdatedDate = DateTime.Now;
-                updated.UpdatedIpAddress = "update";
-                updated.UpdatedComputerName = "update";
+                updated.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+                updated.UpdatedComputerName = Environment.MachineName;
 
                 _context.Entry(updated).CurrentValues.SetValues(entity);
 

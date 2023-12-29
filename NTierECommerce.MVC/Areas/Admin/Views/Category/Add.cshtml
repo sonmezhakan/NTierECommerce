@@ -25,6 +25,18 @@
                 <label>Description</label>
                 <textarea class="form-control" type="text" asp-for="Description"></textarea>
             </div>
+            <div class="form-check">
+                <input asp-for="IsActive" value="false" class="form-check-input" type="radio" name="IsActive" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Pasif
+                </label>
+            </div>
+            <div class="form-check">
+                <input asp-for="IsActive" value="true" class="form-check-input" type="radio" name="IsActive" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Aktif
+                </label>
+            </div>
             <button class="btn btn-primary" type="submit">Ekle</button>
         </form>
     </div>
