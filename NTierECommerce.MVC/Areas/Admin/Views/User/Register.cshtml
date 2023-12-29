@@ -17,23 +17,27 @@
         </div>
         <form method="post">
             <div>
-                <label>User Name</label>
+                <label asp-for="UserName"></label>
+                <span asp-validation-for="UserName" style="color:red;"></span>
                 <input class="form-control" type="text" asp-for="UserName" />
             </div>
             <div>
-                <label>E-Mail</label>
+                <label asp-for="Email"></label>
+                <span asp-validation-for="Email" style="color:red;"></span>
                 <input class="form-control" type="email" asp-for="Email" />
             </div>
             <div>
-                <label>Password</label>
+                <<label asp-for="Password"></label>
+                <span asp-validation-for="Password" style="color:red;"></span>
                 <input class="form-control" type="password" asp-for="Password" />
             </div>
             <div>
-                <label>Phone Number</label>
+                <label asp-for="PhoneNumber"></label>
+                <span asp-validation-for="PhoneNumber" style="color:red;"></span>
                 <input class="form-control" type="number" asp-for="PhoneNumber" />
             </div>
             <div>
-                <label>Address</label>
+                <<label asp-for="Address"></label>
                 <textarea class="form-control" type="text" asp-for="Address"></textarea>
             </div>
             <button class="btn btn-primary" type="submit">Ekle</button>

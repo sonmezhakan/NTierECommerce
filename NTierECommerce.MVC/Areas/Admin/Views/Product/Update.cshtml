@@ -24,7 +24,7 @@
 	<div class="col-md-6">
 		<form method="post" enctype="multipart/form-data">
 			<div class="form-group">
-				<label>ID</label>
+				<label asp-for="ID"></label>
 				<input class="form-control" type="number" asp-for="@Model.ID" disabled />
 			</div>
 			<div class="form-group">
@@ -34,15 +34,18 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label>Product Name</label>
+				<label asp-for="ProductName"></label>
+				<span asp-validation-for="ProductName" style="color:red;"></span>
 				<input class="form-control" type="text" asp-for="@Model.ProductName" />
 			</div>
 			<div class="form-group">
-				<label>Unit Price</label>
+				<label asp-for="UnitPrice"></label>
+				<span asp-validation-for="UnitPrice" style="color:red;"></span>
 				<input class="form-control" type="number" asp-for="@Model.UnitPrice" />
 			</div>
 			<div class="form-group">
-				<label>Units In Stock</label>
+				<label asp-for="UnitsInStock"></label>
+				<span asp-validation-for="UnitsInStock" style="color:red;"></span>
 				<input asp-for="UnitsInStock" type="number" class="form-control">
 			</div>
 			@if(Model.IsActive == true)

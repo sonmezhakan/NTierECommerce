@@ -13,8 +13,11 @@ namespace NTierECommerce.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
+            
+            builder.Property(x => x.UserName).HasMaxLength(64).IsRequired();
+            builder.Property(x=>x.Email).HasMaxLength(255).IsRequired();
+            builder.Property(x=>x.PhoneNumber).HasMaxLength(11).IsRequired();
             builder.Property(x => x.Address).HasMaxLength(500);
-
         }
     }
 }

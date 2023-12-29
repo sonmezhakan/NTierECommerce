@@ -13,7 +13,7 @@ namespace NTierECommerce.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.Property(x => x.Description).HasMaxLength(500);
+            builder.Property(x => x.Description).HasMaxLength(255);
             builder.Property(x=>x.CategoryName).IsRequired();
 
             //Seed Data

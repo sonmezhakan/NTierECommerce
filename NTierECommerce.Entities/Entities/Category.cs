@@ -8,6 +8,8 @@ namespace NTierECommerce.Entities.Entities
         [Required]
         [MaxLength(255)]
         public string CategoryName { get; set; }
+
+        [MaxLength(255)]
         public string? Description { get; set; }
 
         //Mapping

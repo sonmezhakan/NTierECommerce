@@ -1,11 +1,11 @@
 ﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
 @model CategoryVM
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Category Add";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Add</h1>
+<h1>Category Add</h1>
 
 
 <div class="row mx-4">
@@ -18,11 +18,12 @@
         </div>
         <form method="post">
             <div>
-                <label>Category Name</label>
+                <label asp-for="CategoryName"></label>
+                <span asp-validation-for="CategoryName" style="color:red;"></span>
                 <input class="form-control" type="text" asp-for="CategoryName" />
             </div>
             <div>
-                <label>Description</label>
+                <label asp-for="Description"></label>
                 <textarea class="form-control" type="text" asp-for="Description"></textarea>
             </div>
             <div class="form-check">

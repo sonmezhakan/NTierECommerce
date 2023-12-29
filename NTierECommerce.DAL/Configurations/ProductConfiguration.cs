@@ -21,11 +21,11 @@ namespace NTierECommerce.DAL.Configurations
                 .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict);
 
             //Properties
-            builder.Property(x => x.ProductName).HasMaxLength(255);
-            builder.Property(x => x.ProductName).IsRequired();
+            builder.Property(x => x.ProductName).HasMaxLength(255).IsRequired();
 
             builder.Property(x => x.ImagePath).HasMaxLength(255);
-            builder.Property(x => x.UnitPrice).HasColumnType("money");
+            builder.Property(x => x.UnitPrice).HasColumnType("money").IsRequired();
+            builder.Property(x=>x.UnitsInStock).IsRequired();
 
             builder.HasData(SeedProductData());
 

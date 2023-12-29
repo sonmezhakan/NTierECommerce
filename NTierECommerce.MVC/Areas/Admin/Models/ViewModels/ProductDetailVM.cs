@@ -1,4 +1,6 @@
-﻿namespace NTierECommerce.MVC.Areas.Admin.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NTierECommerce.MVC.Areas.Admin.Models.ViewModels
 {
     public class ProductDetailVM
     {

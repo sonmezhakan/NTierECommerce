@@ -17,15 +17,15 @@
         </div>
         <form method="post">
             <div>
-                <label>ID</label>
+                <label asp-for="ID"></label>
                 <input class="form-control" type="text" asp-for="@Model.ID" disabled/>
             </div>
             <div>
-                <label>Role Name</label>
+                <label asp-for="Name"></label>
                 <input class="form-control" type="text" asp-for="@Model.Name" />
             </div>
             <div>
-                <label>Description</label>
+                <label asp-for="Description"></label>
                 <textarea class="form-control" type="text" asp-for="@Model.Description"></textarea>
             </div>
         </form>

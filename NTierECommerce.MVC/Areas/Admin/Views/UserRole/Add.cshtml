@@ -17,11 +17,12 @@
         </div>
         <form method="post">
             <div>
-                <label>Role Name</label>
+                <label asp-for="Name"></label>
+                <span asp-validation-for="Name" style="color:red;"></span>
                 <input class="form-control" type="text" asp-for="Name" />
             </div>
             <div>
-                <label>Description</label>
+                <label asp-for="Description"></label>
                 <textarea class="form-control" type="text" asp-for="Description"></textarea>
             </div>
             <button class="btn btn-primary" type="submit">Ekle</button>

@@ -11,15 +11,16 @@
     <div class="col-md-6">
         <form method="post">
             <div>
-                <label>ID</label>
+                <label asp-for="ID"></label>
                 <input class="form-control" type="text" asp-for="@Model.ID" disabled />
             </div>
             <div>
-                <label>Category Name</label>
+				<label asp-for="CategoryName"></label>
+				<span asp-validation-for="CategoryName" style="color:red;"></span>
                 <input class="form-control" type="text" asp-for="@Model.CategoryName" />
             </div>
             <div>
-                <label>Description</label>
+				<label asp-for="Description"></label>
                 <input class="form-control" type="text" asp-for="@Model.Description" />
             </div>
 			@if (Model.IsActive == true)

@@ -15,26 +15,26 @@
 	</div>
 	<div class="col-md-6">
 		<div>
-			<label>ID</label>
-			<input class="form-control" type="text" asp-for="@Model.ID" />
+			<label asp-for="ID"></label>
+			<input class="form-control" type="text" asp-for="@Model.ID" disabled/>
 		</div>
 		<div>
 			<label>Category Name</label>
 			<input class="form-control" type="text" asp-for="@Model.CategoryName" />
 		</div>
 		<div>
-			<label>Product Name</label>
+			<label asp-for="ProductName"></label>
 			<input class="form-control" type="text" asp-for="@Model.ProductName" />
 		</div>
 		<div>
-			<label>Unit Price</label>
+			<label asp-for="UnitPrice"></label>
 			<input class="form-control" type="text" asp-for="@Model.UnitPrice" />
 		</div>
 		<div>
-			<label>Units In stock</label>
+			<label asp-for="UnitsInStock"></label>
 			<input class="form-control" type="text" asp-for="@Model.UnitsInStock" />
 		</div>
-		<label>Statu</label><br />
+		<label asp-for="IsActive"></label><br />
 		@if (Model.IsActive == false)
 		{
 			<div class="form-check">
