@@ -1,0 +1,30 @@
+﻿@using NTierECommerce.MVC.Models.ViewModels;
+@model LoginVM
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Login</h1>
+
+<div class="row mx-4">
+    @if(TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+    <form method="post">
+        <div>
+            <label asp-for="UserName"></label>
+            <span asp-validation-for="UserName" style="color:red;"></span>
+            <input type="text" asp-for="UserName" class="form-control"/>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <span asp-validation-for="Password" style="color:red;"></span>
+            <input type="password" asp-for="Password" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Giriş</button>
+    </form>
+</div>

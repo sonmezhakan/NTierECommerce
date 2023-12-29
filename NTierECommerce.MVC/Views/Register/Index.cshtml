@@ -1,0 +1,44 @@
+﻿@model UserRegisterVM
+@{
+	ViewData["Title"] = "Register";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Register</h1>
+
+<div class="row mx-4">
+	@if (TempData["Error"] != null)
+	{
+		<div class="alert alert-danger">
+			@TempData["Error"]
+		</div>
+	}
+	<form method="post">
+		<div>
+			<label asp-for="UserName"></label>
+			<span asp-validation-for="UserName" style="color:red;"></span>
+			<input asp-for="UserName" type="text" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Password"></label>
+			<span asp-validation-for="Password" style="color:red;"></span>
+			<input asp-for="Password" type="password" class="form-control"/>
+		</div>
+		<div>
+			<label asp-for="Email"></label>
+			<span asp-validation-for="Email" style="color:red;"></span>
+			<input asp-for="Email" type="email" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="PhoneNumber"></label>
+			<span asp-validation-for="PhoneNumber" style="color:red;"></span>
+			<input asp-for="PhoneNumber" type="number" class="form-control" />
+		</div>
+		<div>
+			<label asp-for="Address"></label>
+			<textarea asp-for="Address" cols="4" rows="3" class="form-control"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Kayıt Ol</button>
+	</form>
+
+</div>

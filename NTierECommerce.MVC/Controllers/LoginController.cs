@@ -1,0 +1,53 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NTierECommerce.Entities.Entities;
+using NTierECommerce.MVC.Models.ViewModels;
+
+namespace NTierECommerce.MVC.Controllers
+{
+    public class LoginController : Controller
+    {
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await _userManager.FindByNameAsync(loginVM.UserName) != null)
+                {
+                    var getUser = await _userManager.FindByNameAsync(loginVM.UserName);
+
+                    var result = await _signInManager.PasswordSignInAsync(getUser, loginVM.Password, false, false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index","Home");
+                    }
+                    else
+                    {
+                        TempData["Error"] = "Şifre Hatalı!";
+                        return View(loginVM);
+                    }
+                }
+                else
+                {
+                    TempData["Error"] = "Böyle bir kullanıcı adı bulunmamaktadır!";
+                    return View(loginVM);
+                }
+            }
+            TempData["Error"] = "Lütfen gerekli alanları doldurunuz!";
+            return View(loginVM);
+        }
+    }
+}

@@ -46,7 +46,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AppUserRoleListVM appUserRoleVM)
+        public async Task<IActionResult> Add(AppUserRoleVM appUserRoleVM)
         {
             if(ModelState.IsValid)
             {

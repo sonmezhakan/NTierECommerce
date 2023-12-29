@@ -29,7 +29,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Models.ViewModels
         [Phone]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Category Name :")]
+        [Display(Name = "Address :")]
         [MaxLength(500)]
         public string Address { get; set; }
     }

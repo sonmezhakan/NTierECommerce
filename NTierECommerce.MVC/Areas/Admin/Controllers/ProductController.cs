@@ -200,26 +200,32 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		//ImageUpload Metot
 		public async Task<string> ImageFile(IFormFile formFile)
 		{
-			string path = "";
-			var imageResult = ImageUploader.Upload(formFile.FileName);
-
-			if (imageResult != "0")
+			if(formFile != null)
 			{
-				path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\product", imageResult);
+                string path = "";
+                var imageResult = ImageUploader.Upload(formFile.FileName);
 
-				using (var stream = new FileStream(path, FileMode.Create))
-				{
-					await formFile.CopyToAsync(stream);
-				};
+                if (imageResult != "0" )
+                {
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\product", imageResult);
 
-				return imageResult;
-			}
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    };
+
+                    return imageResult;
+                }
+                else
+                {
+                    TempData["Error"] = "Görsel formatı uygun değil.";
+                    return "";
+                }
+            }
 			else
 			{
-				TempData["Error"] = "Görsel formatı uygun değil.";
 				return "";
 			}
-
 		}
 
 		//Ürün resimlerinde değişiklik yapılacağı zaman ilk önce eski resmi silen metot
