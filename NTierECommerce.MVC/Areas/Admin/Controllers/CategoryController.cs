@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
 using NTierECommerce.MVC.Models.ViewModels.Category;
+using System.Data;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+	[Authorize(Roles = "Admin")]
+	public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
 

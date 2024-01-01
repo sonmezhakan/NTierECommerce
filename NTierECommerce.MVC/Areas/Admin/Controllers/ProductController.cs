@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,11 +9,13 @@ using NTierECommerce.Common.ImageHelpers;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
 using NTierECommerce.MVC.Models.ViewModels.Product;
+using System.Data;
 using System.IO;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+	[Authorize(Roles = "Admin")]
 	public class ProductController : Controller
 	{
 		private readonly IProductRepository _productRepository;

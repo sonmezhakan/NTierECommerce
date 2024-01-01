@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
 using NTierECommerce.MVC.Models.ViewModels;
+using System.Data;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UserController : Controller
+	[Authorize(Roles = "Admin")]
+	public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppUserRole> _roleManager;
