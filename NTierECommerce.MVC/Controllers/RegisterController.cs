@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+using NTierECommerce.MVC.Models.ViewModels;
 
 namespace NTierECommerce.MVC.Controllers
 {

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+using NTierECommerce.MVC.Models.ViewModels;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {

@@ -1,8 +1,70 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using NTierECommerce.MVC.Models.ViewModels;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model ProductAndCategoryIndexListVM
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+<!-- Section-->
+<div class="row mx-auto">
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5 d-flex">
+			<div class="col-md-9">
+				<div class="row gx-4 gx-lg-3 row-cols-2 row-cols-md-3 row-cols-xl-3 ">
+					@foreach (var item in Model.ProductIndexListVMs)
+					{
+						<div class="col mb-5">
+							<div class="card h-100">
+								<!-- Sale badge-->
+								@*<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>*@
+								<!-- Product image-->
+								
+								<img class="card-img-top" src="/images/product/@item.ImagePath" alt="..." />
+								
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div class="text-center">
+										<!-- Product name-->
+										<h5 class="fw-bolder">@item.ProductName</h5>
+										<!-- Product price-->
+										@*<span class="text-muted text-decoration-line-through">$50.00</span>*@
+										@item.UnitPrice
+									</div>
+								</div>
+								
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="text-center">
+										<a asp-controller="Product" asp-route-productid="@item.ID" class="btn btn-outline-dark mt-auto">Daha Fazla</a>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+
+			<!--Category-->
+
+			<div class="col-md-3 mx-3">
+				<div class="card">
+					<h3 class="title">Kategoriler</h3>
+					<div class="list-group">
+						<a asp-action="Index"  class="list-group-item list-group-item-action">Hepsi</a>
+						@foreach (var item in Model.CategoryIndexListVMs)
+						{
+							<a asp-action="Index" asp-route-categoryid="@item.ID" class="list-group-item list-group-item-action">@item.CategoryName</a>
+						}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+
 </div>
+
+

@@ -9,6 +9,8 @@ namespace NTierECommerce.BLL.Abstracts
 {
     public interface IProductRepository:IRepository<Product>
     {
-        
-    }
+		IEnumerable<Product> GetAllCategoryById(int categoryId);
+		IEnumerable<Product> GetRelatedProducts(int totalProduct);
+
+	}
 }

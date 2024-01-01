@@ -9,6 +9,6 @@ namespace NTierECommerce.BLL.Abstracts
 {
     public interface ICategoryRepository:IRepository<Category>
     {
-        
-    }
+        Task<bool> GetByActive(int id);
+	}
 }

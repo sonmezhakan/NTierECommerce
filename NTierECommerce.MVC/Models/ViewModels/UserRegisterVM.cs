@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NTierECommerce.MVC.Areas.Admin.Models.ViewModels
+namespace NTierECommerce.MVC.Models.ViewModels
 {
     public class UserRegisterVM
     {
-		[Display(Name = "ID :")]
-		public int ID { get; set; }
+        [Display(Name = "ID :")]
+        public int ID { get; set; }
 
         [Required(ErrorMessage = "(Kullanıcı Adı Boş Geçilemez!)")]
         [Display(Name = "User Name :")]

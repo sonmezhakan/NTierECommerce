@@ -2,6 +2,7 @@
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+using NTierECommerce.MVC.Models.ViewModels.Category;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {

@@ -47,7 +47,12 @@ namespace NTierECommerce.BLL.Concretes
             return _repository.GetAllActive();
         }
 
-        public IEnumerable<Product> GetAllPassive()
+		public IEnumerable<Product> GetAllCategoryById(int categoryId)
+		{
+			return _repository.GetAllActive().Where(x=>x.CategoryId == categoryId).ToList();
+		}
+
+		public IEnumerable<Product> GetAllPassive()
         {
             return _repository.GetAllPassive();
         }
@@ -57,7 +62,7 @@ namespace NTierECommerce.BLL.Concretes
             return await _repository.GetById(id);
         }
 
-        public async Task<string> IsActiveActive(Product product)
+		public async Task<string> IsActiveActive(Product product)
         {
             return await _repository.IsActiveActive(product);
         }
@@ -65,6 +70,11 @@ namespace NTierECommerce.BLL.Concretes
         public async Task<string> Update(Product product)
         {
             return await _repository.Update(product);
+        }
+
+        public IEnumerable<Product> GetRelatedProducts(int totalProduct)
+        {
+            return _repository.GetAllActive().OrderBy(x=> Guid.NewGuid()).Take(totalProduct).ToList();
         }
     }
 }

@@ -7,11 +7,12 @@ using NTierECommerce.BLL.Concretes;
 using NTierECommerce.Common.ImageHelpers;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+using NTierECommerce.MVC.Models.ViewModels.Product;
 using System.IO;
 
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {
-	[Area("Admin")]
+    [Area("Admin")]
 	public class ProductController : Controller
 	{
 		private readonly IProductRepository _productRepository;

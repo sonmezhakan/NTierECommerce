@@ -54,7 +54,12 @@ namespace NTierECommerce.BLL.Concretes
             return _repository.GetAllPassive();
         }
 
-        public async Task<Category> GetById(int id)
+		public async Task<bool> GetByActive(int id)
+		{
+			return _repository.GetAll().Any(x => x.Id == id && x.IsActive == true);
+		}
+
+		public async Task<Category> GetById(int id)
         {
             return await _repository.GetById(id);
         }

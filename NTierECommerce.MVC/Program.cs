@@ -25,6 +25,21 @@ builder.Services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<EC
 //AddRepositories
 builder.Services.AddRepositoryService();
 
+
+//Cookie
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.Cookie = new CookieBuilder
+    {
+        Name = "Login"
+    };
+
+    x.LoginPath = new PathString("/Login");
+    x.SlidingExpiration = true;
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoint =>
@@ -88,7 +104,6 @@ app.UseEndpoints(endpoint =>
           pattern: "{controller=Home}/{action=Index}/{id?}"
         );
     });
-
 
 });
 

@@ -19,4 +19,5 @@ namespace NTierECommerce.MVC.Areas.Admin.Models.ViewModels
 		[Display(Name = "Statu :")]
 		public bool IsActive { get; set; }
     }
+
 }
