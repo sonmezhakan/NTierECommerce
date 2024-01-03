@@ -19,8 +19,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddECommerceDb();
 
 
-//IdentityInjection
-builder.Services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<ECommerceContext>();
+///IdentityInjection and token
+builder.Services.AddIdentity<AppUser, AppUserRole>()
+	.AddEntityFrameworkStores<ECommerceContext>()
+	.AddDefaultTokenProviders();
 
 //AddRepositories
 builder.Services.AddRepositoryService();

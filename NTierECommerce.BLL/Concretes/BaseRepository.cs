@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.Common;
 using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Base;
 using System;
@@ -27,7 +28,7 @@ namespace NTierECommerce.BLL.Concretes
             {
                 entity.CreatedDate = DateTime.Now;
                 entity.CreatedComputerName = Environment.MachineName;
-                entity.CreatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+                entity.CreatedIpAddress = IPAddressFinder.GetHostName();
 
                 await _entities.AddAsync(entity);
                 _context.SaveChanges();
@@ -49,7 +50,7 @@ namespace NTierECommerce.BLL.Concretes
 
                 original.Status = Entities.Enums.DataStatus.Deleted;
 				original.UpdatedDate = DateTime.Now;
-				original.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+				original.UpdatedIpAddress = IPAddressFinder.GetHostName();
 				original.UpdatedComputerName = Environment.MachineName;
 
 				original.IsActive = false;
@@ -127,7 +128,7 @@ namespace NTierECommerce.BLL.Concretes
 
 				original.Status = Entities.Enums.DataStatus.Updated;
 				original.UpdatedDate = DateTime.Now;
-				original.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+				original.UpdatedIpAddress = IPAddressFinder.GetHostName();
 				original.UpdatedComputerName = Environment.MachineName;
 				original.IsActive = true;
                 _context.Entry(original).CurrentValues.SetValues(entity);
@@ -153,7 +154,7 @@ namespace NTierECommerce.BLL.Concretes
 
                 updated.Status = Entities.Enums.DataStatus.Updated;
                 updated.UpdatedDate = DateTime.Now;
-                updated.UpdatedIpAddress = new WebClient().DownloadString("http://icanhazip.com");
+                updated.UpdatedIpAddress = IPAddressFinder.GetHostName();
                 updated.UpdatedComputerName = Environment.MachineName;
 
                 _context.Entry(updated).CurrentValues.SetValues(entity);

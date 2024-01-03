@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Models.ViewModels;
+using NuGet.Protocol;
 
 namespace NTierECommerce.MVC.Controllers
 {
@@ -28,17 +30,26 @@ namespace NTierECommerce.MVC.Controllers
                 if (await _userManager.FindByNameAsync(loginVM.UserName) != null)
                 {
                     var getUser = await _userManager.FindByNameAsync(loginVM.UserName);
-
-                    var result = await _signInManager.PasswordSignInAsync(getUser, loginVM.Password, false, false);
-                    if (result.Succeeded)
+                    
+                    
+                    var result = await _signInManager.PasswordSignInAsync(getUser, loginVM.Password,true,true);
+					var emailConfirm = await _userManager.IsEmailConfirmedAsync(getUser);
+					if (result.Succeeded && emailConfirm == true)
                     {
-                        return RedirectToAction("Index","Home");
-                    }
+						return RedirectToAction("Index", "Home");
+					}
+                    else if(result.Succeeded && emailConfirm == false)
+                    {
+						await _signInManager.SignOutAsync();//PasswordSignInAsycn metotu şifre olduğunda giriş işlemini yapıyor. O yüzden mail onaylı değil ise çıkış yaptırmak gerekiyor.
+
+						TempData["Error"] = "Lütfen Mailiniz Onaylayınız!";
+						return RedirectToAction("Index", "Login");
+					}
                     else
                     {
-                        TempData["Error"] = "Şifre Hatalı!";
-                        return View(loginVM);
-                    }
+						TempData["Error"] = "Şifre Hatalı!";
+						return View(loginVM);
+					}
                 }
                 else
                 {
@@ -49,5 +60,7 @@ namespace NTierECommerce.MVC.Controllers
             TempData["Error"] = "Lütfen gerekli alanları doldurunuz!";
             return View(loginVM);
         }
-    }
+
+		
+	}
 }

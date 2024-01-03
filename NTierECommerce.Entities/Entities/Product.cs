@@ -32,5 +32,6 @@ namespace NTierECommerce.Entities.Entities
         [Required]
         public  int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual List<OrderDetail> OrderDetails { get; set; }
     }
 }

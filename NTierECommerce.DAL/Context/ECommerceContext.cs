@@ -26,6 +26,9 @@ namespace NTierECommerce.DAL.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Shipper> Shippers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
 
 
@@ -45,6 +48,14 @@ namespace NTierECommerce.DAL.Context
             //Product
             builder.ApplyConfiguration(new ProductConfiguration());
 
+            //Shipper
+            builder.ApplyConfiguration(new ShipperConfiguration());
+
+            //Order
+            builder.ApplyConfiguration(new OrderConfiguration());
+
+            //OrderDetail
+            builder.ApplyConfiguration(new OrderDetailConfiguration());
 
 
             base.OnModelCreating(builder);

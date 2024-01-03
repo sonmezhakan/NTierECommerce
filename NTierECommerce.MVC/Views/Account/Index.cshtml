@@ -1,15 +1,15 @@
-﻿@using NTierECommerce.MVC.Models.ViewModels;
+﻿
 @model UserRegisterVM
 @{
-	ViewData["Title"] = "Register";
-	Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
 
 
 <div class="row mx-4">
 	<div class="col-md-6 mx-auto">
-		<h1>Register</h1>
+		<h1>Index</h1>
 		@if (TempData["Error"] != null)
 		{
 			<div class="alert alert-danger">
@@ -20,29 +20,29 @@
 			<div>
 				<label asp-for="UserName"></label>
 				<span asp-validation-for="UserName" style="color:red;"></span>
-				<input asp-for="UserName" type="text" class="form-control" />
+				<input asp-for="UserName" type="text" class="form-control" disabled />
 			</div>
 			<div>
 				<label asp-for="Password"></label>
 				<span asp-validation-for="Password" style="color:red;"></span>
-				<input asp-for="Password" type="password" class="form-control" />
+				<input asp-for="Password" type="password" class="form-control" disabled />
 			</div>
 			<div>
 				<label asp-for="Email"></label>
 				<span asp-validation-for="Email" style="color:red;"></span>
-				<input asp-for="Email" type="email" class="form-control" />
+				<input asp-for="Email" type="email" class="form-control" disabled />
 			</div>
 			<div>
 				<label asp-for="PhoneNumber"></label>
 				<span asp-validation-for="PhoneNumber" style="color:red;"></span>
-				<input asp-for="PhoneNumber" type="number" class="form-control" />
+				<input asp-for="PhoneNumber" type="number" class="form-control" disabled />
 			</div>
 			<div>
 				<label asp-for="Address"></label>
 				<textarea asp-for="Address" cols="4" rows="3" class="form-control"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary">Kayıt Ol</button>
+			<button type="submit" class="btn btn-primary">Güncelle</button>
 		</form>
-	</div>
+    </div>
 
 </div>

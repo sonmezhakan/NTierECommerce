@@ -4,11 +4,11 @@ using NTierECommerce.Entities.Entities;
 
 namespace NTierECommerce.MVC.Controllers
 {
-	public class Signout : Controller
+	public class SignoutController : Controller
 	{
 		private readonly SignInManager<AppUser> _signInManager;
 
-		public Signout(SignInManager<AppUser> signInManager)
+		public SignoutController(SignInManager<AppUser> signInManager)
         {
 			_signInManager = signInManager;
 		}

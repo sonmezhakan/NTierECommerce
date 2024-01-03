@@ -35,6 +35,7 @@
 						</ul>
 					</li>
 				</ul>
+
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
 						<i class="bi-cart-fill me-1"></i>
@@ -58,7 +59,7 @@
 									<li><a asp-area="Admin" asp-controller="Home" class="dropdown-item">Administrator</a></li>
 								}
 								
-								<li><a asp-controller="Member" class="dropdown-item">Profile</a></li>
+								<li><a asp-controller="Account" class="dropdown-item">Profile</a></li>
 								<li><a asp-controller="Signout" class="dropdown-item">SignOut</a></li>
 							</ul>
 						</li>
@@ -78,13 +79,52 @@
 			</div>
 		</div>
 	</nav>
+	
 	<!-- Header-->
 	<header class="bg-dark py-5">
-		<div class="container px-4 px-lg-5 my-5">
+		@*<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
 				<h1 class="display-4 fw-bolder">Shop in style</h1>
 				<p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
 			</div>
+		</div>*@
+		<div id="carouselExampleCaptions" class="carousel slide">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/images/product/3818b6f9-89ff-428a-9ae3-21e26e124636.jpg" class="d-block w-25 mx-auto" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>First slide label</h5>
+						<p>Some representative placeholder content for the first slide.</p>
+					</div>
+				</div>
+				<div class="carousel-item text-center">
+					<img src="/images/product/7bc6dd5a-646c-45b6-9eec-4eaa2370295c.jpg" class="d-block w-25 mx-auto" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Second slide label</h5>
+						<p>Some representative placeholder content for the second slide.</p>
+					</div>
+				</div>
+				<div class="carousel-item text-center">
+					<img src="/images/product/a0617641-7920-4fa0-8361-e49874055e78.png" class="d-block w-25 mx-auto" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Third slide label</h5>
+						<p>Some representative placeholder content for the third slide.</p>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
 	</header>
 	

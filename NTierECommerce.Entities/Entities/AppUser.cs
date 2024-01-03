@@ -8,5 +8,7 @@ namespace NTierECommerce.Entities.Entities
         public string? Address { get; set; }
 
         //Todo: Kullanıcı Detayları için AppUserProfile oluşturulacak.
+
+        public virtual List<Order> Orders { get; set; }
     }
 }

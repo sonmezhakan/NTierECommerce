@@ -28,34 +28,21 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		}
 		public async Task<IActionResult> Index()
 		{
-			var productList = _productRepository.GetAll().Select(x => new Product
+			var categoryList = _categoryRepository.GetAll();
+
+			List<ProductListVM> products = _productRepository.GetAll().Select(product => new ProductListVM
 			{
-				Id = x.Id,
-				CategoryId = x.CategoryId,
-				ProductName = x.ProductName,
-				UnitPrice = x.UnitPrice,
-				UnitsInStock = x.UnitsInStock,
-				IsActive = x.IsActive,
-				ImagePath = x.ImagePath,
-			});
+				ID = product.Id,
+				
+				ProductName = product.ProductName,
+				UnitPrice = product.UnitPrice,
+				UnitsInStock = product.UnitsInStock,
+				IsActive = product.IsActive,
+				ImagePath = product.ImagePath,
+				CategoryName = categoryList.FirstOrDefault(x=>x.Id == product.CategoryId).CategoryName
+			}).ToList();
 
-			List<ProductListVM> products = new List<ProductListVM>();
-
-			foreach (var item in productList)
-			{
-				ProductListVM productListVM = new ProductListVM();
-				productListVM.ID = item.Id;
-				productListVM.ProductName = item.ProductName;
-				productListVM.UnitPrice = item.UnitPrice;
-				productListVM.UnitsInStock = item.UnitsInStock;
-				productListVM.IsActive = item.IsActive;
-				productListVM.ImagePath = item.ImagePath;
-
-				var getCategory = await GetCategory(item.CategoryId);
-				productListVM.CategoryName = getCategory.CategoryName;
-
-				products.Add(productListVM);
-			}
+			
 			return View(products);
 		}
 
@@ -139,6 +126,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		public async Task<IActionResult> Update(ProductVM productVM, IFormFile productImage)
 		{
 			var getProduct = await GetProduct(productVM.ID);
+
 			if (productImage != null)
 			{
 				ImageFileDelete(getProduct.ImagePath);

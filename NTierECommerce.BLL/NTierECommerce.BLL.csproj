@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NTierECommerce.Common\NTierECommerce.Common.csproj" />
     <ProjectReference Include="..\NTierECommerce.DAL\NTierECommerce.DAL.csproj" />
     <ProjectReference Include="..\NTierECommerce.Entities\NTierECommerce.Entities.csproj" />
   </ItemGroup>
