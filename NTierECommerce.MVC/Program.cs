@@ -42,6 +42,13 @@ builder.Services.ConfigureApplicationCookie(x =>
 
 });
 
+//Session
+builder.Services.AddSession(x =>
+{
+    x.Cookie.Name = "product_cart";
+    x.IdleTimeout = TimeSpan.FromMinutes(60);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +63,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

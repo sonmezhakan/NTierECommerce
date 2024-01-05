@@ -32,8 +32,10 @@ namespace NTierECommerce.MVC.Controllers
                     var getUser = await _userManager.FindByNameAsync(loginVM.UserName);
                     
                     
-                    var result = await _signInManager.PasswordSignInAsync(getUser, loginVM.Password,true,true);
+                    var result = await _signInManager.PasswordSignInAsync(getUser, loginVM.Password,false, false);
+
 					var emailConfirm = await _userManager.IsEmailConfirmedAsync(getUser);
+
 					if (result.Succeeded && emailConfirm == true)
                     {
 						return RedirectToAction("Index", "Home");

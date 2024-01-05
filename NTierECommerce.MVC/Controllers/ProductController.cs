@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.MVC.Models;
 using NTierECommerce.MVC.Models.ViewModels.Product;
+using NTierECommerce.MVC.Helpers;
 
 namespace NTierECommerce.MVC.Controllers
 {
@@ -12,6 +15,7 @@ namespace NTierECommerce.MVC.Controllers
         {
             _productRepository = productRepository;
         }
+
         public async Task<IActionResult> Index(int? productid)
         {
             var getProduct = await _productRepository.GetById((int)productid);
@@ -23,7 +27,7 @@ namespace NTierECommerce.MVC.Controllers
                     ProductName = getProduct.ProductName,
                     UnitPrice = getProduct.UnitPrice,
                     ImagePath = getProduct.ImagePath,
-                    UnitsInStock = getProduct.UnitsInStock
+                    UnitsInStock = getProduct.UnitsInStock,
                 };
 
                 var getRelatedProducts = _productRepository.GetRelatedProducts(4);
@@ -51,5 +55,9 @@ namespace NTierECommerce.MVC.Controllers
                 return RedirectToAction("Index","Home");
             }
         }
+
+       
+
+        
     }
 }

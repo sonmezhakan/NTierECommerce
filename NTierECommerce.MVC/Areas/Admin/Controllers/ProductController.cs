@@ -30,7 +30,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		{
 			var categoryList = _categoryRepository.GetAll();
 
-			List<ProductListVM> products = _productRepository.GetAll().Select(product => new ProductListVM
+			List<ProductDetailVM> products = _productRepository.GetAll().Select(product => new ProductDetailVM
 			{
 				ID = product.Id,
 				
@@ -83,7 +83,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			if (getProduct != null)
 			{
 				var getCategory = await GetCategory(getProduct.CategoryId);
-				ProductDetailVM productDetailVM = new ProductDetailVM()
+                ProductDetailVM productDetailVM = new ProductDetailVM()
 				{
 					ID = getProduct.Id,
 					CategoryName = getCategory.CategoryName,
@@ -107,7 +107,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			var getProduct = await GetProduct(id);
 			if (getProduct != null)
 			{
-				ProductVM productVM = new ProductVM()
+                ProductVM productVM = new ProductVM()
 				{
 					ID = getProduct.Id,
 					CategoryId = getProduct.CategoryId,
