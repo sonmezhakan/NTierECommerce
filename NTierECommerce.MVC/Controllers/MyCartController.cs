@@ -157,8 +157,8 @@ namespace NTierECommerce.MVC.Controllers
 		}
 		public async Task<IActionResult> MailSender(AppUser appUser, int orderId)
 		{
-			string orderLink = Url.Action("MyOrder", "Account", orderId, Request.Scheme);
-			
+			string orderLink = Url.Action("Detail", "MyOrders", orderId, Request.Scheme);
+			orderLink += "?orderid=" + orderId;
 			string emailBody = $@"<p>Siparişiniz alınmıştır! <a href=""{orderLink}"">#{orderId}</a> Numaralı siparişiniz hazırlanmaya başlandı!</p>";
 			EmailSender.SendHtmlEmail(appUser.Email, "Siparişiniz Alınmıştır!" , emailBody);
 
