@@ -31,5 +31,13 @@
                 return;
             }
         }
+        public void AllDelete()
+        {
+            if( _myCart.Count > 0 )
+            {
+                _myCart.Clear();
+                return;
+            }
+        }
     }
 }

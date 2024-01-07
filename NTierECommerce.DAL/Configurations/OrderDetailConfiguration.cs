@@ -10,12 +10,13 @@ namespace NTierECommerce.DAL.Configurations
 		{
 			builder.Ignore(x => x.Id);
 
-			builder.HasKey(x => new { x.OrderId });
+			builder.HasKey(x => new { x.OrderId, x.ProductId });
 
 			builder.Property(x => x.UnitPrice).HasColumnType("money");
 
 			builder.HasOne(x => x.Order).WithMany(x => x.OrderDetails).HasForeignKey(x => x.OrderId);
 			builder.HasOne(x => x.Product).WithMany(x => x.OrderDetails).HasForeignKey(x => x.ProductId);
+			
 		}
 	}
 }

@@ -1,0 +1,85 @@
+﻿@using NTierECommerce.MVC.Models.ViewModels.MyCart;
+@model ShippingAddressVM
+@{
+    ViewData["Title"] = "My Addresses";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h1>My Addresses</h1>
+        <form method="post">
+            <div>
+                <div>
+                    <h5><a> Adreslerim</a></h5>
+                </div>
+                <div><hr /></div>
+                <div>
+                    <select id="shippingAddressSelect" asp-items="@ViewBag.ShippingAddress" name="addressid" class="form-control" onchange="handleSelectChange(this)">
+                        @if (Model != null)
+                        {
+                            <option selected="@Model.ShippingAddressId" disabled>Adreslerim</option>
+                        }
+                        else
+                        {
+                            <option selected="" disabled>Adreslerim</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div>
+                <input type="hidden" asp-for="ShippingAddressId" />
+            </div>
+            <div>
+                <label asp-for="AddressName"></label>
+                <span asp-validation-for="AddressName"></span>
+                <input type="text" asp-for="@Model.AddressName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="FirstName"></label>
+                <span asp-validation-for="FirstName"></span>
+                <input type="text" asp-for="@Model.FirstName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="LastName"></label>
+                <span asp-validation-for="LastName"></span>
+                <input type="text" asp-for="@Model.LastName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="PhoneNumber"></label>
+                <span asp-validation-for="PhoneNumber"></span>
+                <input type="number" maxlength="11" asp-for="@Model.PhoneNumber" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="Address"></label>
+                <span asp-validation-for="Address"></span>
+                <textarea cols="4" rows="4" asp-for="@Model.Address" class="form-control"></textarea>
+            </div>
+            <div>
+                @if (Model != null)
+                {
+                    <button asp-action="ShippingAddressAdd" type="submit" class="btn btn-primary">Ekle</button>
+                    <button asp-action="ShippingAddressUpdate" type="submit" class="btn btn-warning">Güncelle</button>
+                    <button asp-action="ShippingAddressDelete" asp-route-shippingaddressid="@Model.ShippingAddressId" class="btn btn-danger">Sil</button>
+                }
+                else
+                {
+                    <button asp-action="ShippingAddressAdd" class="btn btn-primary">Ekle</button>
+                    <button asp-action="ShippingAddressUpdate" class="btn btn-warning">Güncelle</button>
+                    <button asp-action="ShippingAddressDelete" class="btn btn-danger">Sil</button>
+                }
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function handleSelectChange(selectElement) {
+        var selectedValue = selectElement.value;
+        window.location.href = "/MyAddresses/?addressid=" + selectedValue
+    }
+</script>

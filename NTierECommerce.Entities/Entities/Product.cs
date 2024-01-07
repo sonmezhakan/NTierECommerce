@@ -27,7 +27,6 @@ namespace NTierECommerce.Entities.Entities
         //todo: birden fazla görsel eklemek için "ProductImage" isimli bir class oluşturularak ilişkilendirme gerçekleştirilecek.
 
 
-
         //Mapping
         [Required]
         public  int CategoryId { get; set; }

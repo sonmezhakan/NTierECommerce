@@ -10,5 +10,6 @@ namespace NTierECommerce.Entities.Entities
         //Todo: Kullanıcı Detayları için AppUserProfile oluşturulacak.
 
         public virtual List<Order> Orders { get; set; }
+        public virtual List<ShippingAddress> ShippingAddresses { get; set; }
     }
 }

@@ -20,18 +20,14 @@ namespace NTierECommerce.DAL.Context
         {
             
         }
-
-
-
-
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-
-
-
+        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -57,7 +53,9 @@ namespace NTierECommerce.DAL.Context
             //OrderDetail
             builder.ApplyConfiguration(new OrderDetailConfiguration());
 
+            builder.ApplyConfiguration(new ShippingAddressConfiguraiton());
 
+            
             base.OnModelCreating(builder);
         }
 

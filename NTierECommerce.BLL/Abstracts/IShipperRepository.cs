@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Abstracts
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface IShipperRepository:IRepository<Shipper>
     {
-		Task<IEnumerable<Product>> GetAllCategoryById(int categoryId);
-		Task<IEnumerable<Product>> GetRelatedProducts(int totalProduct);
-
-	}
+    }
 }

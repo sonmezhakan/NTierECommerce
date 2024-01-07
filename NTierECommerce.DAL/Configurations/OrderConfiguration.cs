@@ -15,6 +15,8 @@ namespace NTierECommerce.DAL.Configurations
 
 			
 			builder.HasOne(x => x.Shipper).WithMany(x => x.Orders).HasForeignKey(x => x.ShipperId);
+			builder.HasMany(x => x.OrderDetails).WithOne(x => x.Order).HasForeignKey(x => x.OrderId);
+			builder.HasOne(x => x.ShippingAddress).WithMany(x => x.Orders).HasForeignKey(x => x.ShippingAddressId);
 
 		}
 	}

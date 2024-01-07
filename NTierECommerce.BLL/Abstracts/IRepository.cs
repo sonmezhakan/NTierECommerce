@@ -5,13 +5,13 @@ namespace NTierECommerce.BLL.Abstracts
     public interface IRepository<T> where T : BaseEntity
     {
         //List
-        IEnumerable<T> GetAll(); //Ienumerable bir koleksiyon içinde farklı bir koleksiyonu teslim alı ve içerde kalan koleksiyonun değerlerini döngüye ihtiyaç duymadan teslim eder.
+        Task<IEnumerable<T>> GetAll(); //Ienumerable bir koleksiyon içinde farklı bir koleksiyonu teslim alı ve içerde kalan koleksiyonun değerlerini döngüye ihtiyaç duymadan teslim eder.
 
         //List Active
-        IEnumerable<T> GetAllActive();
+        Task<IEnumerable<T>> GetAllActive();
 
         //List Passive
-        IEnumerable<T> GetAllPassive();
+        Task<IEnumerable<T>> GetAllPassive();
 
         //Destroy: Veritabanında veriyi doğrudan siler.
         Task<string> DestroyData(T entity);

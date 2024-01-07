@@ -30,7 +30,7 @@ namespace NTierECommerce.MVC.Controllers
                     UnitsInStock = getProduct.UnitsInStock,
                 };
 
-                var getRelatedProducts = _productRepository.GetRelatedProducts(4);
+                var getRelatedProducts = await _productRepository.GetRelatedProducts(4);
 
                 List<ProductDetailVM> productDetailVMs = getRelatedProducts.Select(product => new ProductDetailVM
                 {

@@ -1,0 +1,32 @@
+﻿@using NTierECommerce.MVC.Models.ViewModels.MyOrder;
+@model List<MyOrderListVM>
+@{
+    ViewData["Title"] = "MyOrder";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+
+<div class="container">
+    <h1>MyOrder</h1>
+    @foreach (var item in Model)
+    {
+        <article class="card">
+            <header class="card-header"> My Orders / Tracking </header>
+            <div class="card-body">
+                <h6>Order ID: <a asp-controller="MyOrders" asp-action="Detail" asp-route-orderid="@item.OrderId">@item.OrderId</a></h6>
+                <article class="card">
+                    <div class="card-body row">
+                        <div class="col"> <strong>Order Date:</strong> <br>@item.OrderDate </div>
+                        <div class="col"> <strong>Shipping BY: </strong> <br> @item.ShipperName |  <i class="fa fa-phone"></i> +1598675986 </div>
+                        <div class="col"> <strong>Status:</strong> <br> @item.ShipStatus </div>
+                        <div class="col"> <strong>Tracking #:</strong> <br> @item.ShipNumber </div>
+                    </div>
+                </article>
+
+                <hr>
+                <a asp-controller="MyOrders" asp-action="Detail" asp-route-orderid="@item.OrderId" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Order Detail</a>
+            </div>
+        </article>
+    }
+</div>

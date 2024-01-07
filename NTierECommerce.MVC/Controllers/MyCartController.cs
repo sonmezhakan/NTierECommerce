@@ -1,18 +1,51 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.Common;
+using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Helpers;
 using NTierECommerce.MVC.Models;
+using System.Web;
 
 namespace NTierECommerce.MVC.Controllers
 {
+	[Authorize]
 	public class MyCartController : Controller
 	{
-		[Authorize]
-		public IActionResult Index()
+		private readonly IOrderRepository _orderRepository;
+		private readonly IOrderDetailRepository _orderDetailRepository;
+		private readonly UserManager<AppUser> _userManager;
+		private readonly IShippingAddressRepository _shippingAddressRepository;
+		private readonly IProductRepository _productRepository;
+
+		public MyCartController(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, UserManager<AppUser> userManager, IShippingAddressRepository shippingAddressRepository, IProductRepository productRepository)
+		{
+			_orderRepository = orderRepository;
+			_orderDetailRepository = orderDetailRepository;
+			_userManager = userManager;
+			_shippingAddressRepository = shippingAddressRepository;
+			_productRepository = productRepository;
+		}
+		public async Task<IActionResult> Index()
 		{
 			if (SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet") != null)
 			{
 				var sepet = SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet");
+
+				var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
+				var getMyAddres = await _shippingAddressRepository.GetByUserIdAddressList(getUser.Id);
+
+				ViewBag.ShippingAddress = getMyAddres.Select(x => new ShippingAddress
+				{
+					Id = x.Id,
+					AddressName = x.AddressName
+				}).Select(sa => new SelectListItem
+				{
+					Text = sa.AddressName,
+					Value = sa.Id.ToString()
+				}).ToList();
 				return View(sepet);
 			}
 			else
@@ -20,15 +53,117 @@ namespace NTierECommerce.MVC.Controllers
 				return View();
 			}
 		}
-
-		[Authorize]
-		public IActionResult CompleteCart()
+		
+		[HttpPost]
+		public async Task<IActionResult> CompleteCart(int addressId)
 		{
-			//todo: sepette bulunan boşaltılacak ve bir Order (Sipariş) oluşturulacak. Sipariş No, Hangi kullanıcı tarafından sipariş alındığı kaydedilecek.
-			//todo: OrderDetail tablosuna sipariş ve ürün bilgileri kaydedilecek.
-			//todo: kullanıcıya bir sipariş email'i gönderilecek. İçerisinde sipariş numarası ile birlikte.
+
+			var cartSession = SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet");
+			
+			if (cartSession != null)
+			{
+				if(await CartProductStockControl(cartSession) == false)
+				{
+					return View("Index","MyCart");
+				}
+
+				var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
+				var checkMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, addressId);
+				if (checkMyAddress != null)
+				{
+					
+					Order order = new Order()
+					{
+						OrderDate = DateTime.Now,
+						AppUserId = getUser.Id,
+						ShippingAddressId = addressId,
+						ShipperId = 1
+					};
+
+					var orderAdded = await _orderRepository.Create(order);
+
+					if (orderAdded == "Kayıt başarılı!")
+					{
+						int orderId = await _orderRepository.GetByOrderIdSearch(order);
+
+						foreach (var item in cartSession._myCart)
+						{
+							OrderDetail orderDetail = new OrderDetail()
+							{
+								OrderId = orderId,
+								ProductId = item.Value.Id,
+								UnitPrice = item.Value.UnitPrice,
+								Quantity = item.Value.Quantity
+							};
+
+							var orderDetailAdded = await _orderDetailRepository.Create(orderDetail);
+							if (orderDetailAdded == "Kayıt başarılı!")
+							{
+								var getProduct = await _productRepository.GetById(item.Value.Id);
+								getProduct.UnitsInStock -= item.Value.Quantity;
+								await _productRepository.Update(getProduct);
+
+							}
+						}
+						await MailSender(getUser, orderId);
+						cartSession.AllDelete();
+
+						SessionHelper.SetJsonProduct(HttpContext.Session, "sepet", cartSession);
+						return RedirectToAction("Index", "MyOrders");
+					}
+				}
+				else
+				{
+					TempData["Error"] = "Geçersiz Adres!";
+					return View("Index", "MyCart");
+				}
+
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			return RedirectToAction("Index", "Home");
+		}
+
+		
+		public IActionResult Delete(int id)
+		{
+			var cartSession = SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet");
+			if (cartSession != null)
+			{
+				if (cartSession._myCart.ContainsKey(id))
+				{
+					cartSession.DeleteItem(cartSession._myCart[id]);
+					SessionHelper.SetJsonProduct(HttpContext.Session, "sepet", cartSession);
+				}
+			}
+			return RedirectToAction("Index", "MyCart");
+		}
+
+
+		public async Task<bool> CartProductStockControl(Cart cart)
+		{
+			foreach (var item in cart._myCart)
+			{
+				var getProduct = await _productRepository.GetById(item.Value.Id);
+				if (item.Value.Quantity > getProduct.UnitsInStock)
+				{
+					TempData["Error"] = "Sepetteki " + getProduct.ProductName + " adlı ürününden en fazla " + getProduct.UnitsInStock + " adet sipariş verebilirsiniz!";
+					return false;
+				}
+			}
+			return true;
+		}
+		public async Task<IActionResult> MailSender(AppUser appUser, int orderId)
+		{
+			string orderLink = Url.Action("MyOrder", "Account", orderId, Request.Scheme);
+			
+			string emailBody = $@"<p>Siparişiniz alınmıştır! <a href=""{orderLink}"">#{orderId}</a> Numaralı siparişiniz hazırlanmaya başlandı!</p>";
+			EmailSender.SendHtmlEmail(appUser.Email, "Siparişiniz Alınmıştır!" , emailBody);
 
 			return View();
 		}
+
 	}
 }

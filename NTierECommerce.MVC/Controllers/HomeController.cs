@@ -31,10 +31,10 @@ namespace NTierECommerce.MVC.Controllers
 			if (categoryid != null && await _categoryRepository.GetByActive((int)categoryid) == true)
 			{
 				//Kategoriye göre aktif ürünleri getir
-				var getProducts = _productRepository.GetAllCategoryById((int)categoryid);
+				var getProducts = await _productRepository.GetAllCategoryById((int)categoryid);
 
 				//Aktif kategorileri getir
-				var getCategories = _categoryRepository.GetAllActive();
+				var getCategories =await _categoryRepository.GetAllActive();
 
 				//getProducts ve getCategories olarak parametre verilen metottan bize aynı view model üzerinden hem ürün hemde kategori döndürüyor.
 				var getProductAndCategory = ProductAndCategoryList(ProductIndexList(getProducts.ToList()), CategoryIndexListVM(getCategories.ToList()));
@@ -44,10 +44,10 @@ namespace NTierECommerce.MVC.Controllers
 			else if (categoryid == null)
 			{
 				//Aktif ürünleri getir
-				var getProducts = _productRepository.GetAllActive();
+				var getProducts =await _productRepository.GetAllActive();
 
 				//Aktif kategorileri getir
-				var getCategories = _categoryRepository.GetAllActive();
+				var getCategories =await _categoryRepository.GetAllActive();
 
 				//getProducts ve getCategories olarak parametre verilen metottan bize aynı view model üzerinden hem ürün hemde kategori döndürüyor.
 				var getProductAndCategory = ProductAndCategoryList(ProductIndexList(getProducts.ToList()), CategoryIndexListVM(getCategories.ToList()));

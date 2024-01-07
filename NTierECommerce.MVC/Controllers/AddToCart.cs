@@ -9,10 +9,12 @@ namespace NTierECommerce.MVC.Controllers
     public class AddToCart : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public AddToCart(IProductRepository productRepository)
+        public AddToCart(IProductRepository productRepository,ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
@@ -24,7 +26,8 @@ namespace NTierECommerce.MVC.Controllers
         {
             Cart cartSession;
 
-            var product = _productRepository.GetAllActive().FirstOrDefault(x => x.Id == id);
+            var getProductList =await _productRepository.GetAllActive();
+            var product = getProductList.FirstOrDefault(x => x.Id == id);
             if (product != null)
             {
                 CartItem cartItem = new CartItem();
@@ -32,6 +35,10 @@ namespace NTierECommerce.MVC.Controllers
                 cartItem.ProductName = product.ProductName;
                 cartItem.UnitPrice = Math.Round(product.UnitPrice, 2);
                 cartItem.Quantity = inputQuantity;
+                cartItem.ImagePath = product.ImagePath;
+
+                var getCategory = await _categoryRepository.GetById(product.CategoryId);
+                cartItem.CategoryName = getCategory.CategoryName;
 
                 if (SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet") == null)
                 {

@@ -19,9 +19,10 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var categoryList = _categoryRepository.GetAll().Select(x => new Category
+            var getCategoryList = await _categoryRepository.GetAll();
+            var categoryList = getCategoryList.Select(x => new Category
             {
                 Id = x.Id,
                 CategoryName = x.CategoryName,

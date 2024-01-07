@@ -55,9 +55,10 @@
 							{
 								<li><a asp-area="Admin" asp-controller="Home" class="dropdown-item">Administrator</a></li>
 							}
-
-							<li><a asp-controller="Account" class="dropdown-item">Profile</a></li>
-							<li><a asp-controller="Signout" class="dropdown-item">SignOut</a></li>
+							<li><a asp-controller="Account" asp-action="Index" class="dropdown-item">Profile</a></li>
+							<li><a asp-controller="MyOrders" asp-action="Index" class="dropdown-item">My Orders</a></li>
+							<li><a asp-controller="MyAddresses" asp-action="Index" class="dropdown-item">My Addresses</a></li>
+							<li><a asp-controller="Signout" asp-action="Index" class="dropdown-item">SignOut</a></li>
 						</ul>
 					</li>
 				</ul>

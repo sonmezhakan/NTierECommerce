@@ -99,20 +99,22 @@ namespace NTierECommerce.BLL.Concretes
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _entities.ToList();
+            return await _entities.ToListAsync();
         }
 
-        public IEnumerable<T> GetAllActive()
+        public async Task<IEnumerable<T>> GetAllActive()
         {
-            return _entities.Where(x => x.IsActive == true).ToList();
+            var result = await _entities.ToListAsync();
+            return result.Where(x => x.IsActive == true);
 
         }
 
-        public IEnumerable<T> GetAllPassive()
+        public async Task<IEnumerable<T>> GetAllPassive()
         {
-            return _entities.Where(x => x.IsActive == false).ToList();
+            var result = await _entities.ToListAsync();
+            return result.Where(x => x.IsActive == false);
         }
 
         public async Task<T> GetById(int id)

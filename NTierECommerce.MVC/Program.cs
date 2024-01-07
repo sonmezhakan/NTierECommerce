@@ -100,9 +100,18 @@ app.UseEndpoints(endpoint =>
         );
     });
 
-
+    
     //Custom Route
     //Buraya custom route tanýmlanacak. Örneðin ürün detaylarý gösterilirken url'de olabildðince seo'a uygun bir route oluþturulacak.
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+            name: "ProductRoute",
+            pattern: "Urun/{productid}",
+            defaults: new { controller = "Product", action = "Index" }
+            );
+    });
 
 
     //Default Route

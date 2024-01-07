@@ -23,12 +23,16 @@ namespace NTierECommerce.Entities.Entities
         public string? ShipNumber { get; set; }
 
 		public int? ShipperId { get; set; }
+        public int ShippingAddressId { get; set; }
 
-		[Required]
+        [Required]
 		public int AppUserId { get; set; }
 
 		public virtual AppUser AppUser { get; set; }
         public virtual Shipper Shipper { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
-    }
+		public ShippingAddress ShippingAddress { get; set; }
+
+
+	}
 }

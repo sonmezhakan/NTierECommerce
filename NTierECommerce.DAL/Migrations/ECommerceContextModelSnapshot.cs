@@ -297,11 +297,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 1,
                             CategoryName = "Giyim",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(3826),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(2674),
                             CreatedIpAddress = "tanımsız",
                             Description = "Yazlık, kışlık, renkli, renksiz giyim ürünleri",
                             IsActive = true,
-                            MasterId = new Guid("354cf188-5839-44ef-afac-f7244d8aa4ad"),
+                            MasterId = new Guid("1a90d52c-6880-432d-8e26-41476886f5a4"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -311,11 +311,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 2,
                             CategoryName = "Teknoloji",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(3861),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(2725),
                             CreatedIpAddress = "tanımsız",
                             Description = "Tablet, Telefon, bilgisayar",
                             IsActive = true,
-                            MasterId = new Guid("45dbb851-ad88-4057-b7f5-273a9abbcec1"),
+                            MasterId = new Guid("f4f912a4-505f-4742-8183-da230cf2f9a6"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -325,11 +325,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 3,
                             CategoryName = "Kozmetik",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(3863),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(2727),
                             CreatedIpAddress = "tanımsız",
                             Description = "parfüm, ruj, falan filan",
                             IsActive = true,
-                            MasterId = new Guid("8c3308ec-b215-4b75-b3d9-ccb5a5e49785"),
+                            MasterId = new Guid("ff94b53d-5793-4316-afcc-45501ff8e656"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -377,6 +377,9 @@ namespace NTierECommerce.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<int>("ShippingAddressId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -397,12 +400,17 @@ namespace NTierECommerce.DAL.Migrations
 
                     b.HasIndex("ShipperId");
 
+                    b.HasIndex("ShippingAddressId");
+
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("NTierECommerce.Entities.Entities.OrderDetail", b =>
                 {
                     b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedComputerName")
@@ -421,9 +429,6 @@ namespace NTierECommerce.DAL.Migrations
 
                     b.Property<Guid>("MasterId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -445,7 +450,7 @@ namespace NTierECommerce.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("OrderId", "ProductId");
 
                     b.HasIndex("ProductId");
 
@@ -522,11 +527,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5087),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4229),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/113/550/110000060380106.jpg",
                             IsActive = true,
-                            MasterId = new Guid("685d3aac-3dda-4a15-931a-83c8e1d4f7b3"),
+                            MasterId = new Guid("8414d4c5-7b5c-4db3-901d-95193ad93ae1"),
                             ProductName = "Nike Airmax",
                             Status = 0,
                             UnitPrice = 4000m,
@@ -539,11 +544,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 2,
                             CategoryId = 2,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5097),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4255),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/498/550/110000549694124.jpg",
                             IsActive = true,
-                            MasterId = new Guid("d98d032a-284f-41a8-8030-e2c4f6fc8f3a"),
+                            MasterId = new Guid("2f48c333-42c7-4e81-811d-82b16cba9e5d"),
                             ProductName = "Lenovo",
                             Status = 0,
                             UnitPrice = 30000m,
@@ -556,11 +561,11 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 3,
                             CategoryId = 3,
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5100),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4258),
                             CreatedIpAddress = "tanımsız",
                             ImagePath = "https://productimages.hepsiburada.net/s/416/550/110000445267488.jpg",
                             IsActive = true,
-                            MasterId = new Guid("b24fb4d6-b6d7-4eae-aa86-038ea8df8aa8"),
+                            MasterId = new Guid("91c74ea1-9427-45a4-b853-10ee678f9a5b"),
                             ProductName = "MAC Ruj",
                             Status = 0,
                             UnitPrice = 2000m,
@@ -628,10 +633,10 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 1,
                             CompanyName = "Aras",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5496),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4604),
                             CreatedIpAddress = "tanımsız",
                             IsActive = true,
-                            MasterId = new Guid("bc0d77f9-a2d6-48ec-a43a-1756b62be912"),
+                            MasterId = new Guid("1d79e85d-f14e-41b8-b48b-9614fcd8b867"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -641,10 +646,10 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 2,
                             CompanyName = "Mng",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5501),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4609),
                             CreatedIpAddress = "tanımsız",
                             IsActive = true,
-                            MasterId = new Guid("9b82c585-1d14-4599-b418-b1a0b99cc88a"),
+                            MasterId = new Guid("bb9cac83-ed8b-4621-a779-d7c4701bce5b"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
@@ -654,14 +659,88 @@ namespace NTierECommerce.DAL.Migrations
                             Id = 3,
                             CompanyName = "Ups",
                             CreatedComputerName = "tanımsız",
-                            CreatedDate = new DateTime(2024, 1, 3, 11, 0, 14, 174, DateTimeKind.Local).AddTicks(5516),
+                            CreatedDate = new DateTime(2024, 1, 7, 14, 42, 13, 741, DateTimeKind.Local).AddTicks(4610),
                             CreatedIpAddress = "tanımsız",
                             IsActive = true,
-                            MasterId = new Guid("2593edc3-c69e-4474-914a-de58c479870b"),
+                            MasterId = new Guid("c1fc68b2-ed3d-4edb-a657-4fdd4fdc7a7f"),
                             Status = 0,
                             UpdatedComputerName = "tanımsız",
                             UpdatedIpAddress = "tanımsız"
                         });
+                });
+
+            modelBuilder.Entity("NTierECommerce.Entities.Entities.ShippingAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("AddressName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedComputerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIpAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<Guid>("MasterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedComputerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedIpAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("ShippingAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -729,9 +808,17 @@ namespace NTierECommerce.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("NTierECommerce.Entities.Entities.ShippingAddress", "ShippingAddress")
+                        .WithMany("Orders")
+                        .HasForeignKey("ShippingAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
 
                     b.Navigation("Shipper");
+
+                    b.Navigation("ShippingAddress");
                 });
 
             modelBuilder.Entity("NTierECommerce.Entities.Entities.OrderDetail", b =>
@@ -764,9 +851,22 @@ namespace NTierECommerce.DAL.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("NTierECommerce.Entities.Entities.ShippingAddress", b =>
+                {
+                    b.HasOne("NTierECommerce.Entities.Entities.AppUser", "AppUser")
+                        .WithMany("ShippingAddresses")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("NTierECommerce.Entities.Entities.AppUser", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("ShippingAddresses");
                 });
 
             modelBuilder.Entity("NTierECommerce.Entities.Entities.Category", b =>
@@ -785,6 +885,11 @@ namespace NTierECommerce.DAL.Migrations
                 });
 
             modelBuilder.Entity("NTierECommerce.Entities.Entities.Shipper", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("NTierECommerce.Entities.Entities.ShippingAddress", b =>
                 {
                     b.Navigation("Orders");
                 });

@@ -28,27 +28,30 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		}
 		public async Task<IActionResult> Index()
 		{
-			var categoryList = _categoryRepository.GetAll();
+            var categoryList = await _categoryRepository.GetAll();
+		
+            var getProductList =await _productRepository.GetAll();
 
-			List<ProductDetailVM> products = _productRepository.GetAll().Select(product => new ProductDetailVM
+			List<ProductDetailVM> products = getProductList.Select(product => new ProductDetailVM
 			{
 				ID = product.Id,
-				
+
 				ProductName = product.ProductName,
 				UnitPrice = product.UnitPrice,
 				UnitsInStock = product.UnitsInStock,
 				IsActive = product.IsActive,
 				ImagePath = product.ImagePath,
-				CategoryName = categoryList.FirstOrDefault(x=>x.Id == product.CategoryId).CategoryName
-			}).ToList();
+
+				CategoryName = categoryList.FirstOrDefault(x => x.Id == product.CategoryId).CategoryName
+            }).ToList();
 
 			
 			return View(products);
 		}
 
-		public IActionResult Add()
+		public async Task<IActionResult> Add()
 		{
-			ViewBagCategloryList();
+			await ViewBagCategloryList();
 			return View();
 		}
 
@@ -102,7 +105,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Update(int id)
 		{
-			ViewBagCategloryList();
+			await ViewBagCategloryList();
 
 			var getProduct = await GetProduct(id);
 			if (getProduct != null)
@@ -179,9 +182,11 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 		}
 
 		//ViewBag CategoryList
-		public void ViewBagCategloryList()
+		public async Task ViewBagCategloryList()
 		{
-			ViewBag.CategoryListItem = _categoryRepository.GetAllActive().Select(c => new SelectListItem
+			var getCategoryList =await _categoryRepository.GetAllActive();
+
+            ViewBag.CategoryListItem = getCategoryList.Select(c => new SelectListItem
 			{
 				Text = c.CategoryName,
 				Value = c.Id.ToString()

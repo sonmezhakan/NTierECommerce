@@ -37,24 +37,26 @@ namespace NTierECommerce.BLL.Concretes
             return await _repository.DestroyData(product);
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public IEnumerable<Product> GetAllActive()
+        public async Task<IEnumerable<Product>> GetAllActive()
         {
-            return _repository.GetAllActive();
+            return await _repository.GetAllActive();
         }
 
-		public IEnumerable<Product> GetAllCategoryById(int categoryId)
+		public async Task<IEnumerable<Product>> GetAllCategoryById(int categoryId)
 		{
-			return _repository.GetAllActive().Where(x=>x.CategoryId == categoryId).ToList();
+            var result = await _repository.GetAllActive();
+
+            return result.Where(x=>x.CategoryId == categoryId);
 		}
 
-		public IEnumerable<Product> GetAllPassive()
+		public async Task<IEnumerable<Product>> GetAllPassive()
         {
-            return _repository.GetAllPassive();
+            return await _repository.GetAllPassive();
         }
 
         public async Task<Product> GetById(int id)
@@ -72,9 +74,10 @@ namespace NTierECommerce.BLL.Concretes
             return await _repository.Update(product);
         }
 
-        public IEnumerable<Product> GetRelatedProducts(int totalProduct)
+        public async Task<IEnumerable<Product>> GetRelatedProducts(int totalProduct)
         {
-            return _repository.GetAllActive().OrderBy(x=> Guid.NewGuid()).Take(totalProduct).ToList();
+            var result = await _repository.GetAllActive();
+            return result.OrderBy(x=> Guid.NewGuid()).Take(totalProduct).ToList();
         }
     }
 }

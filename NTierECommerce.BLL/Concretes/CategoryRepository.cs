@@ -39,24 +39,26 @@ namespace NTierECommerce.BLL.Concretes
             return await _repository.DestroyData(category);
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public IEnumerable<Category> GetAllActive()
+        public async Task<IEnumerable<Category>> GetAllActive()
         {
-            return _repository.GetAllActive();
+            return await _repository.GetAllActive();
         }
 
-        public IEnumerable<Category> GetAllPassive()
+        public async Task<IEnumerable<Category>> GetAllPassive()
         {
-            return _repository.GetAllPassive();
+            return await _repository.GetAllPassive();
         }
 
 		public async Task<bool> GetByActive(int id)
 		{
-			return _repository.GetAll().Any(x => x.Id == id && x.IsActive == true);
+            var result = await _repository.GetAll();
+
+            return result.Any(x => x.Id == id && x.IsActive == true);
 		}
 
 		public async Task<Category> GetById(int id)
