@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.DAL.Context;
@@ -15,13 +16,15 @@ namespace NTierECommerce.MVC.Controllers
     public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
+        private readonly ICategoryRepository _categoryRepository;
 		private readonly IProductRepository _productRepository;
 
-		public HomeController(ILogger<HomeController> logger, ICategoryRepository categoryRepository, IProductRepository productRepository)
+		public HomeController(ILogger<HomeController> logger, IMapper mapper, ICategoryRepository categoryRepository, IProductRepository productRepository)
 		{
 			_logger = logger;
-			_categoryRepository = categoryRepository;
+            _mapper = mapper;
+            _categoryRepository = categoryRepository;
 			_productRepository = productRepository;
 		}
 		
@@ -32,12 +35,14 @@ namespace NTierECommerce.MVC.Controllers
 			{
 				//Kategoriye göre aktif ürünleri getir
 				var getProducts = await _productRepository.GetAllCategoryById((int)categoryid);
+				List<ProductIndexListVM> productIndexListVMs = _mapper.Map<List<ProductIndexListVM>>(getProducts);
 
 				//Aktif kategorileri getir
 				var getCategories =await _categoryRepository.GetAllActive();
+				List<CategoryIndexListVM> categoryIndexListVMs = _mapper.Map<List<CategoryIndexListVM>>(getCategories);
 
 				//getProducts ve getCategories olarak parametre verilen metottan bize aynı view model üzerinden hem ürün hemde kategori döndürüyor.
-				var getProductAndCategory = ProductAndCategoryList(ProductIndexList(getProducts.ToList()), CategoryIndexListVM(getCategories.ToList()));
+				var getProductAndCategory = ProductAndCategoryList(productIndexListVMs, categoryIndexListVMs);
 
 				return View(getProductAndCategory);
 			}
@@ -45,12 +50,14 @@ namespace NTierECommerce.MVC.Controllers
 			{
 				//Aktif ürünleri getir
 				var getProducts =await _productRepository.GetAllActive();
+                List<ProductIndexListVM> productIndexListVMs = _mapper.Map<List<ProductIndexListVM>>(getProducts);
 
-				//Aktif kategorileri getir
-				var getCategories =await _categoryRepository.GetAllActive();
+                //Aktif kategorileri getir
+                var getCategories = await _categoryRepository.GetAllActive();
+                List<CategoryIndexListVM> categoryIndexListVMs = _mapper.Map<List<CategoryIndexListVM>>(getCategories);
 
-				//getProducts ve getCategories olarak parametre verilen metottan bize aynı view model üzerinden hem ürün hemde kategori döndürüyor.
-				var getProductAndCategory = ProductAndCategoryList(ProductIndexList(getProducts.ToList()), CategoryIndexListVM(getCategories.ToList()));
+                //getProducts ve getCategories olarak parametre verilen metottan bize aynı view model üzerinden hem ürün hemde kategori döndürüyor.
+                var getProductAndCategory = ProductAndCategoryList(productIndexListVMs, categoryIndexListVMs);
 
 				return View(getProductAndCategory);
 			}
@@ -73,35 +80,6 @@ namespace NTierECommerce.MVC.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-
-		//Product tipindeki nesneyi ProductIndexListVM'e çeviriyor
-		public List<ProductIndexListVM> ProductIndexList(List<Product> getProducts)
-		{
-			List<ProductIndexListVM> products = getProducts.Select(product => new ProductIndexListVM
-			{
-				ID = product.Id,
-				ProductName = product.ProductName,
-				UnitPrice = product.UnitPrice,
-				ImagePath = product.ImagePath
-			}).ToList();
-
-			return products;
-		}
-
-		//Category tipindeki nesneyi CategoryIndexListVM'e çeviriyor
-		public List<CategoryIndexListVM> CategoryIndexListVM(List<Category> getCategories)
-		{
-
-			List<CategoryIndexListVM> categories = getCategories.Select(category => new CategoryIndexListVM
-			{
-				ID = category.Id,
-				CategoryName = category.CategoryName
-			}).ToList();
-
-			return categories;
-		}
-
-		//ProductIndexListVM ve CategoryIndexListVM tipindeki listeleri alıp ProductAndCategoryIndexListVM tipine çeviriyor
 		public ProductAndCategoryIndexListVM ProductAndCategoryList(List<ProductIndexListVM> products, List<CategoryIndexListVM> categories)
 		{
 

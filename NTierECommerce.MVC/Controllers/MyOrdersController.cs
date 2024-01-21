@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.BLL.Abstracts;
@@ -10,6 +11,7 @@ namespace NTierECommerce.MVC.Controllers
     [Authorize]
     public class MyOrdersController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IOrderRepository _orderRepository;
         private readonly IShipperRepository _shipperRepository;
@@ -17,8 +19,9 @@ namespace NTierECommerce.MVC.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public MyOrdersController(UserManager<AppUser> userManager,IOrderRepository orderRepository, IShipperRepository shipperRepository, IOrderDetailRepository orderDetailRepository, IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public MyOrdersController(IMapper mapper, UserManager<AppUser> userManager,IOrderRepository orderRepository, IShipperRepository shipperRepository, IOrderDetailRepository orderDetailRepository, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
+            _mapper = mapper;
             _userManager = userManager;
             _orderRepository = orderRepository;
             _shipperRepository = shipperRepository;
@@ -36,11 +39,8 @@ namespace NTierECommerce.MVC.Controllers
             foreach (var item in getOrderList.OrderByDescending(x => x.OrderDate))
             {
                 var getShipper = await _shipperRepository.GetById((int)item.ShipperId);
-                MyOrderListVM myOrderListVM = new MyOrderListVM();
-                myOrderListVM.OrderId = item.OrderId;
-                myOrderListVM.OrderDate = item.OrderDate;
-                myOrderListVM.ShipNumber = item.ShipNumber;
-                myOrderListVM.ShipperName = getShipper.CompanyName;
+                MyOrderListVM myOrderListVM = _mapper.Map<MyOrderListVM>(item);
+                
                 myOrderListVM.ShipStatus = "Yolda";
                 myOrderLists.Add(myOrderListVM);
             }
@@ -60,18 +60,9 @@ namespace NTierECommerce.MVC.Controllers
                 foreach (var item in getOrderDetail)
                 {
                     var getProduct = await _productRepository.GetById(item.ProductId);
-                    var getCategory = await _categoryRepository.GetById(getProduct.CategoryId);
-                    OrderDetailVM orderDetailVM = new OrderDetailVM()
-                    {
-                        OrderId = item.OrderId,
-                        OrderDate = getOrder.OrderDate,
-                        ProductName = getProduct.ProductName,
-                        ImagePath = getProduct.ImagePath,
-                        CategoryName = getCategory.CategoryName,
-                        Quantity = item.Quantity,
-                        UnitPrice = item.UnitPrice,
-                        SubTotalPrice = item.Quantity * item.UnitPrice
-                    };
+                    
+                    OrderDetailVM orderDetailVM = _mapper.Map<OrderDetailVM>(item);
+                    orderDetailVM.SubTotalPrice = item.Quantity * item.UnitPrice;
 
                     orderdetails.Add(orderDetailVM);
                 }

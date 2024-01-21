@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,15 +15,17 @@ namespace NTierECommerce.MVC.Controllers
 	[Authorize]
 	public class MyCartController : Controller
 	{
-		private readonly IOrderRepository _orderRepository;
+        private readonly IMapper _mapper;
+        private readonly IOrderRepository _orderRepository;
 		private readonly IOrderDetailRepository _orderDetailRepository;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IShippingAddressRepository _shippingAddressRepository;
 		private readonly IProductRepository _productRepository;
 
-		public MyCartController(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, UserManager<AppUser> userManager, IShippingAddressRepository shippingAddressRepository, IProductRepository productRepository)
+		public MyCartController(IMapper mapper, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, UserManager<AppUser> userManager, IShippingAddressRepository shippingAddressRepository, IProductRepository productRepository)
 		{
-			_orderRepository = orderRepository;
+            _mapper = mapper;
+            _orderRepository = orderRepository;
 			_orderDetailRepository = orderDetailRepository;
 			_userManager = userManager;
 			_shippingAddressRepository = shippingAddressRepository;
@@ -75,8 +78,8 @@ namespace NTierECommerce.MVC.Controllers
 					Order order = new Order()
 					{
 						OrderDate = DateTime.Now,
-						AppUserId = getUser.Id,
-						ShippingAddressId = addressId,
+						AppUser = getUser,
+						ShippingAddress = checkMyAddress,
 						ShipperId = 1
 					};
 
@@ -88,15 +91,15 @@ namespace NTierECommerce.MVC.Controllers
 
 						foreach (var item in cartSession._myCart)
 						{
-							OrderDetail orderDetail = new OrderDetail()
-							{
-								OrderId = orderId,
-								ProductId = item.Value.Id,
-								UnitPrice = item.Value.UnitPrice,
-								Quantity = item.Value.Quantity
-							};
+                            OrderDetail orderDetail = new OrderDetail()
+                            {
+                                OrderId = orderId,
+                                ProductId = item.Value.Id,
+                                UnitPrice = item.Value.UnitPrice,
+                                Quantity = item.Value.Quantity
+                            };
 
-							var orderDetailAdded = await _orderDetailRepository.Create(orderDetail);
+                            var orderDetailAdded = await _orderDetailRepository.Create(orderDetail);
 							if (orderDetailAdded == "Kayıt başarılı!")
 							{
 								var getProduct = await _productRepository.GetById(item.Value.Id);

@@ -4,7 +4,7 @@ namespace NTierECommerce.MVC.Models.ViewModels.MyCart
 {
     public class ShippingAddressVM
     {
-        public int ShippingAddressId { get; set; }
+        public int Id { get; set; }
 
 		[Required(ErrorMessage = "(Adres Adı boş olamaz!)")]
 		[Display(Name = "Adres Adı")]

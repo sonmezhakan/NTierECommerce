@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,19 +21,21 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 	{
 		private readonly IProductRepository _productRepository;
 		private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
 
-		public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository,IMapper mapper)
 		{
 			_productRepository = productRepository;
 			_categoryRepository = categoryRepository;
-		}
+            _mapper = mapper;
+        }
 		public async Task<IActionResult> Index()
 		{
             var categoryList = await _categoryRepository.GetAll();
 		
             var getProductList =await _productRepository.GetAll();
 
-			List<ProductDetailVM> products = getProductList.Select(product => new ProductDetailVM
+            List<ProductDetailVM> products = getProductList.Select(product => new ProductDetailVM
 			{
 				ID = product.Id,
 
@@ -61,15 +64,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			productVM.ImagePath = await ImageFile(productImage);
 			if (productVM.ImagePath != null)
 			{
-				Product product = new Product()
-				{
-					CategoryId = productVM.CategoryId,
-					ProductName = productVM.ProductName,
-					UnitPrice = productVM.UnitPrice,
-					UnitsInStock = productVM.UnitsInStock,
-					IsActive = productVM.IsActive,
-					ImagePath = productVM.ImagePath
-				};
+				Product product = _mapper.Map<Product>(productVM);
 
 				await _productRepository.Create(product);
 				return RedirectToAction("Index", "Product");
@@ -86,16 +81,9 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			if (getProduct != null)
 			{
 				var getCategory = await GetCategory(getProduct.CategoryId);
-                ProductDetailVM productDetailVM = new ProductDetailVM()
-				{
-					ID = getProduct.Id,
-					CategoryName = getCategory.CategoryName,
-					ProductName = getProduct.ProductName,
-					UnitPrice = getProduct.UnitPrice,
-					UnitsInStock = getProduct.UnitsInStock,
-					IsActive = getProduct.IsActive,
-					ImagePath = getProduct.ImagePath
-				};
+                ProductDetailVM productDetailVM = _mapper.Map<ProductDetailVM>(getProduct);
+				productDetailVM.CategoryName = getCategory.CategoryName;
+
 				return View(productDetailVM);
 			}
 
@@ -110,16 +98,8 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			var getProduct = await GetProduct(id);
 			if (getProduct != null)
 			{
-                ProductVM productVM = new ProductVM()
-				{
-					ID = getProduct.Id,
-					CategoryId = getProduct.CategoryId,
-					ProductName = getProduct.ProductName,
-					UnitPrice = getProduct.UnitPrice,
-					UnitsInStock = getProduct.UnitsInStock,
-					IsActive = getProduct.IsActive,
-					ImagePath = getProduct.ImagePath
-				};
+                ProductVM productVM = _mapper.Map<ProductVM>(getProduct);
+
 				return View(productVM);
 			}
 
@@ -140,25 +120,12 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 				productVM.ImagePath = getProduct.ImagePath;
 			}
 
-			if (productVM.ImagePath != null)
-			{
-				Product product = new Product()
-				{
-					Id = productVM.ID,
-					CategoryId = productVM.CategoryId,
-					ProductName = productVM.ProductName,
-					UnitPrice = productVM.UnitPrice,
-					UnitsInStock = productVM.UnitsInStock,
-					IsActive = productVM.IsActive,
-					ImagePath = productVM.ImagePath,
-				};
+            Product product = _mapper.Map<Product>(productVM);
 
-				await _productRepository.Update(product);
-				return RedirectToAction("Index", "Product");
-			}
+            var result = await _productRepository.Update(product);
+			if(result != null) return RedirectToAction("Index", "Product");
 
-
-			return View(productVM);
+            return View(productVM);        
 		}
 
 		public async Task<IActionResult> IsActivePassive(int id)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,12 +12,14 @@ namespace NTierECommerce.MVC.Controllers
 	[Authorize]
 	public class MyAddressesController : Controller
 	{
-		private readonly UserManager<AppUser> _userManager;
+        private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
 		private readonly IShippingAddressRepository _shippingAddressRepository;
 
-		public MyAddressesController(UserManager<AppUser> userManager,IShippingAddressRepository shippingAddressRepository)
+		public MyAddressesController(IMapper mapper,UserManager<AppUser> userManager,IShippingAddressRepository shippingAddressRepository)
         {
-			_userManager = userManager;
+            _mapper = mapper;
+            _userManager = userManager;
 			_shippingAddressRepository = shippingAddressRepository;
 		}
         public async Task<IActionResult> Index(int? addressid)
@@ -29,15 +32,7 @@ namespace NTierECommerce.MVC.Controllers
 				var getMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, (int)addressid);
 				if (getMyAddress != null)
 				{
-					ShippingAddressVM shippingAddressVM = new ShippingAddressVM()
-					{
-						ShippingAddressId = getMyAddress.Id,
-						FirstName = getMyAddress.FirstName,
-						LastName = getMyAddress.LastName,
-						AddressName = getMyAddress.AddressName,
-						Address = getMyAddress.Address,
-						PhoneNumber = getMyAddress.PhoneNumber
-					};
+					ShippingAddressVM shippingAddressVM = _mapper.Map<ShippingAddressVM>(getMyAddress);
 
 					return View(shippingAddressVM);
 				}
@@ -54,16 +49,10 @@ namespace NTierECommerce.MVC.Controllers
 		{
 
 			var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
+			
+			ShippingAddress shippingAddress = _mapper.Map<ShippingAddress>(shippingAddressVM);
+			shippingAddress.AppUser = getUser;
 
-			ShippingAddress shippingAddress = new ShippingAddress()
-			{
-				AddressName = shippingAddressVM.AddressName,
-				FirstName = shippingAddressVM.FirstName,
-				LastName = shippingAddressVM.LastName,
-				PhoneNumber = shippingAddressVM.PhoneNumber,
-				Address = shippingAddressVM.Address,
-				AppUserId = getUser.Id
-			};
 
 			await _shippingAddressRepository.Create(shippingAddress);
 
@@ -79,21 +68,13 @@ namespace NTierECommerce.MVC.Controllers
 		public async Task<IActionResult> ShippingAddressUpdate(ShippingAddressVM shippingAddressVM)
 		{
 			var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
-			var getMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, shippingAddressVM.ShippingAddressId);
+			var getMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, shippingAddressVM.Id);
 			if (getMyAddress != null)
 			{
-				ShippingAddress shippingAddress = new ShippingAddress
-				{
-					Id = shippingAddressVM.ShippingAddressId,
-					AddressName = shippingAddressVM.AddressName,
-					FirstName = shippingAddressVM.FirstName,
-					LastName = shippingAddressVM.LastName,
-					PhoneNumber = shippingAddressVM.PhoneNumber,
-					Address = shippingAddressVM.Address,
-					AppUserId = getUser.Id
-				};
+                ShippingAddress shippingAddress = _mapper.Map<ShippingAddress>(shippingAddressVM);
+                shippingAddress.AppUserId = getUser.Id;
 
-				await _shippingAddressRepository.Update(shippingAddress);
+                await _shippingAddressRepository.Update(shippingAddress);
 			}
 			return RedirectToAction("Index", "MyAddresses");
 		}
@@ -104,10 +85,10 @@ namespace NTierECommerce.MVC.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> ShippingAddressDelete(int shippingaddressid)
+		public async Task<IActionResult> ShippingAddressDelete(int addressid)
 		{
 			var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
-			var getMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, shippingaddressid);
+			var getMyAddress = await _shippingAddressRepository.GetByUserIdAndAddressId(getUser.Id, addressid);
 			if (getMyAddress != null)
 			{
 				await _shippingAddressRepository.Delete(getMyAddress);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTierECommerce.Common;
@@ -11,10 +12,12 @@ namespace NTierECommerce.MVC.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
 
-        public RegisterController(UserManager<AppUser> userManager)
+        public RegisterController(IMapper mapper, UserManager<AppUser> userManager)
         {
+            _mapper = mapper;
             _userManager = userManager;
         }
         public IActionResult Index()
@@ -45,7 +48,7 @@ namespace NTierECommerce.MVC.Controllers
                     return View(userRegisterVM);
                 }
 
-                var appUser = ConvertUserRegisterVMToAppUser(userRegisterVM);
+                AppUser appUser = _mapper.Map<AppUser>(userRegisterVM);
 
                 var result = await _userManager.CreateAsync(appUser, userRegisterVM.Password);
 
@@ -63,19 +66,6 @@ namespace NTierECommerce.MVC.Controllers
             }
             TempData["Error"] = "Lütfen gerekli alanları doldurunuz!";
             return View(userRegisterVM);
-        }
-
-        private AppUser ConvertUserRegisterVMToAppUser(UserRegisterVM userRegisterVM)
-        {
-            AppUser appUser = new AppUser
-            {
-                UserName = userRegisterVM.UserName,
-                Email = userRegisterVM.Email,
-                PhoneNumber = userRegisterVM.PhoneNumber,
-                Address = userRegisterVM.Address
-            };
-
-            return appUser;
         }
 
         public async Task<IActionResult> MailSender(AppUser appUser)

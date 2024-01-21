@@ -6,6 +6,7 @@ using NTierECommerce.BLL.Concretes;
 using NTierECommerce.DAL.Context;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.IOC.DependencyResolvers;
+using NTierECommerce.MVC.AutoMappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ builder.Services.AddIdentity<AppUser, AppUserRole>()
 //AddRepositories
 builder.Services.AddRepositoryService();
 
+//AddAutoMappers
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 //Cookie
 builder.Services.ConfigureApplicationCookie(x =>

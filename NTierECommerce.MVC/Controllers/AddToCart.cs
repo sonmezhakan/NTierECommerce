@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.BLL.Abstracts;
-using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Helpers;
 using NTierECommerce.MVC.Models;
 
@@ -8,11 +8,13 @@ namespace NTierECommerce.MVC.Controllers
 {
     public class AddToCart : Controller
     {
+        private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public AddToCart(IProductRepository productRepository,ICategoryRepository categoryRepository)
+        public AddToCart(IMapper mapper, IProductRepository productRepository,ICategoryRepository categoryRepository)
         {
+            _mapper = mapper;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
@@ -30,15 +32,8 @@ namespace NTierECommerce.MVC.Controllers
             var product = getProductList.FirstOrDefault(x => x.Id == id);
             if (product != null)
             {
-                CartItem cartItem = new CartItem();
-                cartItem.Id = product.Id;
-                cartItem.ProductName = product.ProductName;
-                cartItem.UnitPrice = Math.Round(product.UnitPrice, 2);
+                CartItem cartItem = _mapper.Map<CartItem>(product);
                 cartItem.Quantity = inputQuantity;
-                cartItem.ImagePath = product.ImagePath;
-
-                var getCategory = await _categoryRepository.GetById(product.CategoryId);
-                cartItem.CategoryName = getCategory.CategoryName;
 
                 if (SessionHelper.GetProductFromJson<Cart>(HttpContext.Session, "sepet") == null)
                 {

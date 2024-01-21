@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,31 +15,18 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 	public class UserRoleController : Controller
     {
         private readonly RoleManager<AppUserRole> _roleManager;
+        private readonly IMapper _mapper;
 
-        public UserRoleController(RoleManager<AppUserRole> roleManager)
+        public UserRoleController(RoleManager<AppUserRole> roleManager,IMapper mapper)
         {
             _roleManager = roleManager;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            var roleList = await _roleManager.Roles.Select(x => new AppUserRole
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description
-            }).ToListAsync();
+            var roleList = await _roleManager.Roles.ToListAsync();
 
-            List<AppUserRoleListVM> list = new List<AppUserRoleListVM>();
-
-            foreach (var role in roleList) 
-            {
-                AppUserRoleListVM appUserRoleVM = new AppUserRoleListVM();
-                appUserRoleVM.ID = role.Id;
-                appUserRoleVM.Name = role.Name;
-                appUserRoleVM.Description = role.Description;
-
-                list.Add(appUserRoleVM);
-            }
+            List<AppUserRoleListVM> list = _mapper.Map<List<AppUserRoleListVM>>(roleList);
 
             return View(list);
         }
@@ -53,12 +41,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                AppUserRole appUserRole = new AppUserRole()
-                {
-                    Id = appUserRoleVM.ID,
-                    Name = appUserRoleVM.Name,
-                    Description = appUserRoleVM.Description
-                };
+                AppUserRole appUserRole = _mapper.Map<AppUserRole>(appUserRoleVM);
 
                 await _roleManager.CreateAsync(appUserRole);
                 return RedirectToAction("Index", "UserRole");
@@ -71,12 +54,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             var getAppUserRole = await GetAppUserRole(id);
             if (getAppUserRole != null)
             {
-                AppUserRoleVM appUserRoleVM = new AppUserRoleVM()
-                {
-                    ID = getAppUserRole.Id,
-                    Name = getAppUserRole.Name,
-                    Description = getAppUserRole.Description
-                };
+                AppUserRoleVM appUserRoleVM = _mapper.Map<AppUserRoleVM>(getAppUserRole);
                 return View(appUserRoleVM);
             }
             return View();
@@ -94,12 +72,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             var getAppUserRole = await GetAppUserRole(id);
             if (getAppUserRole != null)
             {
-                AppUserRoleVM appUserRoleVM = new AppUserRoleVM()
-                {
-                    ID = getAppUserRole.Id,
-                    Name = getAppUserRole.Name,
-                    Description = getAppUserRole.Description
-                };
+                AppUserRoleVM appUserRoleVM = _mapper.Map<AppUserRoleVM>(getAppUserRole);
 
                 return View(appUserRoleVM);
             }
@@ -112,12 +85,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             //todo: bir kere güncelleme işlemi yapılınca otomatik olarak veritabanındaki ConcurrencyStamp propertysini dolduruyor. Bu yüzden 2.sefer güncelleme işlemi yapılamıyorEv
             if(ModelState.IsValid)
             {
-                AppUserRole appUserRole = new AppUserRole()
-                {
-                    Id = appUserRoleVM.ID,
-                    Name = appUserRoleVM.Name,
-                    Description = appUserRoleVM.Description
-                };
+                AppUserRole appUserRole = _mapper.Map<AppUserRole>(appUserRoleVM);
 
                 await _roleManager.UpdateAsync(appUserRole);
                 return RedirectToAction("Index", "UserRole");

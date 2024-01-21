@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.Entities.Entities;
 using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+using NTierECommerce.MVC.Models.ViewModels;
 using NTierECommerce.MVC.Models.ViewModels.Category;
 using System.Data;
 
@@ -13,10 +15,12 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 	public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryRepository categoryRepository,IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -30,19 +34,8 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                 IsActive = x.IsActive
             });
 
-            List<CategoryListVM> list = new List<CategoryListVM>();
+            List<CategoryListVM> list = _mapper.Map<List<CategoryListVM>>(categoryList);
 
-
-            foreach (var item in categoryList)
-            {
-                CategoryListVM categoryListVM = new CategoryListVM();
-                categoryListVM.ID = item.Id;
-                categoryListVM.CategoryName = item.CategoryName;
-                categoryListVM.Description = item.Description;
-                categoryListVM.IsActive = item.IsActive;
-
-                list.Add(categoryListVM);
-            }
 
             return View(list);
         }
@@ -57,11 +50,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                Category category = new Category() { 
-                CategoryName = categoryVM.CategoryName,
-                Description = categoryVM.Description,
-                IsActive = categoryVM.IsActive
-                };
+                Category category = _mapper.Map<Category>(categoryVM);
 
                 await _categoryRepository.Create(category);
                 return RedirectToAction("Index", "Category");
@@ -75,13 +64,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             var getCategory = await GetCategory(id);
             if (getCategory != null)
             {
-                CategoryVM categoryVM = new CategoryVM()
-                {
-                    ID = getCategory.Id,
-                    CategoryName = getCategory.CategoryName,
-                    Description = getCategory.Description,
-                    IsActive = getCategory.IsActive
-                };
+                CategoryVM categoryVM = _mapper.Map<CategoryVM>(getCategory);
                 return View(categoryVM);
             }
             return View();
@@ -93,13 +76,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 			var getCategory = await GetCategory(id);
 			if (getCategory != null)
 			{
-				CategoryVM categoryVM = new CategoryVM()
-				{
-					ID = getCategory.Id,
-					CategoryName = getCategory.CategoryName,
-					Description = getCategory.Description,
-					IsActive = getCategory.IsActive
-				};
+                CategoryVM categoryVM = _mapper.Map<CategoryVM>(getCategory);
 				return View(categoryVM);
 			}
 			return View();
@@ -110,13 +87,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                Category category = new Category()
-                {
-                    Id = categoryVM.ID,
-                    CategoryName = categoryVM.CategoryName,
-                    Description = categoryVM.Description,
-                    IsActive = categoryVM.IsActive,
-                };
+                Category category = _mapper.Map<Category>(categoryVM);
                 await _categoryRepository.Update(category);
             }
             return View(categoryVM);

@@ -18,10 +18,10 @@
                 </div>
                 <div><hr /></div>
                 <div>
-                    <select id="shippingAddressSelect" asp-items="@ViewBag.ShippingAddress" name="addressid" class="form-control" onchange="handleSelectChange(this)">
+                    <select id="shippingAddressSelect" asp-items="@ViewBag.ShippingAddress" asp-for="Id" name="addressid" class="form-control" onchange="handleSelectChange(this)">
                         @if (Model != null)
                         {
-                            <option selected="@Model.ShippingAddressId" disabled>Adreslerim</option>
+                            <option selected="@Model.Id" disabled>Adreslerim</option>
                         }
                         else
                         {
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div>
-                <input type="hidden" asp-for="ShippingAddressId" />
+                <input type="hidden" asp-for="Id" />
             </div>
             <div>
                 <label asp-for="AddressName"></label>
@@ -63,7 +63,7 @@
                 {
                     <button asp-action="ShippingAddressAdd" type="submit" class="btn btn-primary">Ekle</button>
                     <button asp-action="ShippingAddressUpdate" type="submit" class="btn btn-warning">Güncelle</button>
-                    <button asp-action="ShippingAddressDelete" asp-route-shippingaddressid="@Model.ShippingAddressId" class="btn btn-danger">Sil</button>
+                    <button asp-action="ShippingAddressDelete" asp-route-shippingaddressid="@Model.Id" class="btn btn-danger">Sil</button>
                 }
                 else
                 {

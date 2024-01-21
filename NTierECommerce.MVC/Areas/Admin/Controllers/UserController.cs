@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,28 +12,29 @@ using System.Data;
 namespace NTierECommerce.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-	[Authorize(Roles = "Admin")]
-	public class UserController : Controller
+    [Authorize(Roles = "Admin")]
+    public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppUserRole> _roleManager;
+        private readonly IMapper _mapper;
 
-        public UserController(UserManager<AppUser> userManager,RoleManager<AppUserRole> roleManager)
+        public UserController(UserManager<AppUser> userManager, RoleManager<AppUserRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            var getRoles = _roleManager.Roles.Select(x => new AppUserRole
+            List<AppUserRole> appUserRoles = _roleManager.Roles.Select(x => new AppUserRole
             {
                 Id = x.Id,
                 Name = x.Name
             }).ToList();
 
-            
 
-            var userList = _userManager.Users.Select(x => new AppUser
+            List<AppUser> appUsers = _userManager.Users.Select(x => new AppUser
             {
                 Id = x.Id,
                 UserName = x.UserName,
@@ -43,7 +45,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 
             List<UserListVM> list = new List<UserListVM>();
 
-            foreach (var item in userList)
+            foreach (var item in appUsers)
             {
                 var getMyRoles = await _userManager.GetRolesAsync(item);
 
@@ -54,7 +56,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
                 userListVM.PhoneNumber = item.PhoneNumber;
                 userListVM.Address = item.Address;
                 userListVM.MyRoles = getMyRoles.ToList();
-                userListVM.Roles = getRoles;
+                userListVM.Roles = appUserRoles;
 
                 list.Add(userListVM);
             }
@@ -72,34 +74,21 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser appUser = new AppUser()
-                {
-                    UserName = userRegisterVM.UserName,
-                    Email = userRegisterVM.Email,
-                    PhoneNumber = userRegisterVM.PhoneNumber,
-                    Address = userRegisterVM.Address
-                };
+                AppUser appUser = _mapper.Map<AppUser>(userRegisterVM);
 
-                await _userManager.CreateAsync(appUser,userRegisterVM.Password);
+                await _userManager.CreateAsync(appUser, userRegisterVM.Password);
                 return RedirectToAction("Index", "User");
             }
 
-            return View();  
+            return View();
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var getUser = await GetAppUser(id);
-            if(getUser != null)
+            if (getUser != null)
             {
-                UserRegisterVM userRegisterVM = new UserRegisterVM()
-                {
-                    ID = getUser.Id,
-                    UserName = getUser.UserName,
-                    Email = getUser.Email,
-                    PhoneNumber = getUser.PhoneNumber,
-                    Address = getUser.Address
-                };
+                UserRegisterVM userRegisterVM = _mapper.Map<UserRegisterVM>(getUser);
 
                 return View(userRegisterVM);
             }
@@ -113,14 +102,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
             var getUser = await GetAppUser(id);
             if (getUser != null)
             {
-                UserRegisterVM userRegisterVM = new UserRegisterVM()
-                {
-                    ID = getUser.Id,
-                    UserName = getUser.UserName,
-                    Email = getUser.Email,
-                    PhoneNumber = getUser.PhoneNumber,
-                    Address = getUser.Address
-                };
+                UserRegisterVM userRegisterVM = _mapper.Map<UserRegisterVM>(getUser);
 
                 return View(userRegisterVM);
             }
@@ -128,21 +110,18 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(UserRegisterVM userRegisterVM)
+        public async Task<IActionResult> Update(UserUpdateVM userUpdateVM)
         {
             if (ModelState.IsValid)
             {
-                AppUser appUser = new AppUser()
-                {
-                    Id = userRegisterVM.ID,
-                    UserName = userRegisterVM.UserName,
-                    Email = userRegisterVM.Email,
-                    PhoneNumber = userRegisterVM.PhoneNumber,
-                    Address = userRegisterVM.Address
-                };
+                var getAppUser = await _userManager.FindByIdAsync(userUpdateVM.ID.ToString());
+                if (getAppUser == null) return View();
 
+                getAppUser.Address = userUpdateVM.Address;
+
+                 await _userManager.UpdateAsync(getAppUser);
                 //todo:Şifre değiştirme ve güncelleme işlemleri yapılacak.
-                
+
             }
             return View();
         }
@@ -150,14 +129,14 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _userManager.DeleteAsync(await GetAppUser(id));
-            return RedirectToAction("Index","User");
+            return RedirectToAction("Index", "User");
         }
 
         public async Task<IActionResult> RoleUpdate(int userid, int roleid)
         {
             var getAppUserRole = await GetAppUserRole(roleid);
             await _userManager.AddToRoleAsync(await GetAppUser(userid), getAppUserRole.Name);
-            return RedirectToAction("Index","User");
+            return RedirectToAction("Index", "User");
         }
 
         public async Task<AppUser> GetAppUser(int id)
@@ -167,7 +146,7 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 
         public async Task<AppUserRole> GetAppUserRole(int id)
         {
-            return await _roleManager.Roles.FirstOrDefaultAsync(x=>x.Id == id);
+            return await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
         }
 
 
