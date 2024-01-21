@@ -54,6 +54,8 @@ namespace NTierECommerce.MVC.AutoMappers
             #endregion
 
             #region ShipperMapper
+            CreateMap<Shipper, ShipperVM>();
+            CreateMap<ShipperVM, Shipper>();
             #endregion
 
             #region ShippingAddressMapper

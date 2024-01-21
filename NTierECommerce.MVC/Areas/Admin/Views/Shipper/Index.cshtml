@@ -1,0 +1,38 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model List<ShipperVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Shipper List</h1>
+
+<div class="row mx-4">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Shipper Name</th>
+                <th>Phone Number</th>
+                <th>
+                    <a class="btn btn-primary" asp-action="Add">Ekle</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Detay</a>
+                        <a class="btn btn-warning" asp-action="Update" asp-route-id="@item.ID">Güncelle</a>
+                        <a class="btn btn-danger" asp-action="Destroy" asp-route-id="@item.ID">Kalıcı Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

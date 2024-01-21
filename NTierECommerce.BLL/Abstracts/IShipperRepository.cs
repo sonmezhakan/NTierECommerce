@@ -9,5 +9,6 @@ namespace NTierECommerce.BLL.Abstracts
 {
     public interface IShipperRepository:IRepository<Shipper>
     {
+        Task<Shipper> GetByCompanyName(string companyName);
     }
 }

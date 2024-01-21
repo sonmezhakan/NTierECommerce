@@ -1,0 +1,29 @@
+﻿@using NTierECommerce.MVC.Areas.Admin.Models.ViewModels;
+@model ShipperVM
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@Model.CompanyName Update</h1>
+
+<div class="row mx-4">
+    <div class="col-md-6">
+       <form method="post">
+            <div>
+                <label asp-for="CompanyName"></label>
+                <span asp-validation-for="CompanyName"></span>
+                <input type="text" class="form-control" asp-for="@Model.CompanyName" />
+            </div>
+            <div>
+                <label asp-for="PhoneNumber"></label>
+                <span asp-validation-for="PhoneNumber"></span>
+                <input type="number" class="form-control" asp-for="@Model.PhoneNumber" />
+            </div>
+            <div class="my-3">
+                <button class="btn btn-primary" type="submit">Güncelle</button>
+            </div>
+       </form>
+       
+    </div>
+</div>

@@ -51,6 +51,12 @@ namespace NTierECommerce.BLL.Concretes
             return await _repository.GetAllPassive();
         }
 
+        public async Task<Shipper> GetByCompanyName(string companyName)
+        {
+            var result = await _repository.GetAll();
+            return result.FirstOrDefault(x=>x.CompanyName == companyName) ?? null;
+        }
+
         public async Task<Shipper> GetById(int id)
         {
             return await _repository.GetById(id);
