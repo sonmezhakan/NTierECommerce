@@ -1,4 +1,5 @@
 ﻿using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Repositories.Abstracts;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,63 +9,63 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Concretes
 {
-    public class OrderDetailRepository : IOrderDetailRepository
+    public class OrderDetailManager : IOrderDetailService
     {
-        private readonly IRepository<OrderDetail> _repository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
 
-        public OrderDetailRepository(IRepository<OrderDetail> repository)
+        public OrderDetailManager(IOrderDetailRepository orderDetailRepository)
         {
-            _repository = repository;
+            _orderDetailRepository = orderDetailRepository;
         }
         public Task<string> Create(OrderDetail entity)
         {
-            return _repository.Create(entity);
+            return _orderDetailRepository.Create(entity);
         }
 
         public Task<string> Delete(OrderDetail entity)
         {
-            return _repository.Delete(entity);
+            return _orderDetailRepository.Delete(entity);
         }
 
         public Task<string> DestroyAllData(List<OrderDetail> entity)
         {
-            return _repository.DestroyAllData(entity);
+            return _orderDetailRepository.DestroyAllData(entity);
         }
 
         public Task<string> DestroyData(OrderDetail entity)
         {
-            return _repository.DestroyData(entity);
+            return _orderDetailRepository.DestroyData(entity);
         }
 
         public async Task<IEnumerable<OrderDetail>> GetAll()
         {
-            return await _repository.GetAll();
+            return await _orderDetailRepository.GetAll();
         }
 
         public async Task<IEnumerable<OrderDetail>> GetAllActive()
         {
-            return await _repository.GetAllActive();
+            return await _orderDetailRepository.GetAllActive();
         }
 
         public async Task<IEnumerable<OrderDetail>> GetAllPassive()
         {
-            return await _repository.GetAllPassive();
+            return await _orderDetailRepository.GetAllPassive();
         }
 
         public Task<OrderDetail> GetById(int id)
         {
-            return _repository.GetById(id);
+            return _orderDetailRepository.GetById(id);
         }
 
         public async Task<IEnumerable<OrderDetail>> GetByIdList(int orderId)
         {
-            var orderList = await _repository.GetAll();
+            var orderList = await _orderDetailRepository.GetAll();
             return orderList.Where(x => x.OrderId == orderId);
         }
 
         public async Task<decimal> GetByOrderIDTotalPrice(int orderId)
         {
-            var getOrderList = _repository.GetAll().Result;
+            var getOrderList = _orderDetailRepository.GetAll().Result;
             var getOrder = getOrderList.Where(x=>x.OrderId == orderId);
 
             decimal totalPrice = 0;
@@ -79,7 +80,7 @@ namespace NTierECommerce.BLL.Concretes
 
         public async Task<decimal> GetTotalEarning()
         {
-            var getList = await _repository.GetAll();
+            var getList = await _orderDetailRepository.GetAll();
 
             decimal totalEarning = 0;
             foreach (var item in getList)
@@ -92,12 +93,12 @@ namespace NTierECommerce.BLL.Concretes
 
         public Task<string> IsActiveActive(OrderDetail entity)
         {
-            return _repository.IsActiveActive(entity);
+            return _orderDetailRepository.IsActiveActive(entity);
         }
 
         public Task<string> Update(OrderDetail entity)
         {
-            return _repository.Update(entity);
+            return _orderDetailRepository.Update(entity);
         }
     }
 }

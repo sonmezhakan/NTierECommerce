@@ -9,10 +9,10 @@ namespace NTierECommerce.MVC.Controllers
     public class AddToCart : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductService _productRepository;
+        private readonly ICategoryService _categoryRepository;
 
-        public AddToCart(IMapper mapper, IProductRepository productRepository,ICategoryRepository categoryRepository)
+        public AddToCart(IMapper mapper, IProductService productRepository,ICategoryService categoryRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;

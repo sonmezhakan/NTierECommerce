@@ -1,4 +1,5 @@
 ﻿using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Repositories.Abstracts;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,92 +9,92 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Concretes
 {
-	public class OrderRepository : IOrderRepository
+	public class OrderManager : IOrderService
 	{
-		private readonly IRepository<Order> _repository;
+        private readonly IOrderRepository _orderRepository;
 
-		public OrderRepository(IRepository<Order> repository)
+        public OrderManager(IOrderRepository orderRepository)
         {
-			_repository = repository;
-		}
+           _orderRepository = orderRepository;
+        }
         public async Task<string> Create(Order entity)
 		{
-			return await _repository.Create(entity);
+			return await _orderRepository.Create(entity);
 		}
 
 		public async Task<string> Delete(Order entity)
 		{
-			return await _repository.Delete(entity);
+			return await _orderRepository.Delete(entity);
 		}
 
 		public async Task<string> DestroyAllData(List<Order> entity)
 		{
-			return await _repository.DestroyAllData(entity);
+			return await _orderRepository.DestroyAllData(entity);
 		}
 
 		public async Task<string> DestroyData(Order entity)
 		{
-			return await _repository.DestroyData(entity);
+			return await _orderRepository.DestroyData(entity);
 		}
 
 		public async Task<IEnumerable<Order>> GetAll()
 		{
-			return await _repository.GetAll();
+			return await _orderRepository.GetAll();
 		}
 
 		public async Task<IEnumerable<Order>> GetAllActive()
 		{
-			return await _repository.GetAllActive();
+			return await _orderRepository.GetAllActive();
 		}
 
         public async Task<int> GetAllCount()
         {
-			return _repository.GetAll().Result.Count();
+			return _orderRepository.GetAll().Result.Count();
         }
 
         public async Task<IEnumerable<Order>> GetAllPassive()
 		{
-			return await _repository.GetAllPassive();
+			return await _orderRepository.GetAllPassive();
 		}
 
 		public async Task<Order> GetById(int id)
 		{
-			var result = await _repository.GetAll();
+			var result = await _orderRepository.GetAll();
 			return result.FirstOrDefault(x => x.OrderId == id);
 		}
 
 		public async Task<int> GetByOrderIdSearch(Order order)
 		{
-			var getOrderList =await _repository.GetAll();
+			var getOrderList =await _orderRepository.GetAll();
 			return getOrderList.FirstOrDefault(x=>x.AppUserId == order.AppUserId && x.OrderDate == order.OrderDate && x.ShippingAddressId == order.ShippingAddressId).OrderId;
 		}
 
         public async Task<Order> GetByUserAndOrderId(int userId, int orderId)
         {
-			var result = await _repository.GetAll();
+			var result = await _orderRepository.GetAll();
 			return result.FirstOrDefault(x=>x.AppUserId == userId && x.OrderId == orderId);
         }
 
         public async Task<IEnumerable<Order>> GetByUserId(int userId)
 		{
-			var orderList = await _repository.GetAll();
+			var orderList = await _orderRepository.GetAll();
 			return orderList.Where(x=>x.AppUserId == userId);
 		}
 
         public async Task<int> GetMonthlyCount()
         {
-            var getList = await _repository.GetAll();
+            var getList = await _orderRepository.GetAll();
 			return getList.Where(x=>x.OrderDate.Year == DateTime.Now.Year && x.OrderDate.Month == DateTime.Now.Month).Count();
         }
 
         public Task<string> IsActiveActive(Order entity)
 		{
-			return _repository.IsActiveActive(entity);
+			return _orderRepository.IsActiveActive(entity);
 		}
 
 		public Task<string> Update(Order entity)
 		{
-			return _repository.Update(entity);
+			return _orderRepository.Update(entity);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Repositories.Abstracts;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,57 +9,57 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Concretes
 {
-	public class ShippingAddressRepository : IShippingAddressRepository
+	public class ShippingAddressManager : IShippingAddressService
 	{
-		private readonly IRepository<ShippingAddress> _repository;
+        private readonly IShippingAddressRepository _shippingAddressRepository;
 
-		public ShippingAddressRepository(IRepository<ShippingAddress> repository)
+        public ShippingAddressManager(IShippingAddressRepository shippingAddressRepository)
         {
-			_repository = repository;
-		}
+            _shippingAddressRepository = shippingAddressRepository;
+        }
         public async Task<string> Create(ShippingAddress entity)
 		{
-			return await _repository.Create(entity);
+			return await _shippingAddressRepository.Create(entity);
 		}
 
 		public async Task<string> Delete(ShippingAddress entity)
 		{
-			return await _repository.Delete(entity);
+			return await _shippingAddressRepository.Delete(entity);
 		}
 
 		public async Task<string> DestroyAllData(List<ShippingAddress> entity)
 		{
-			return await _repository.DestroyAllData(entity);
+			return await _shippingAddressRepository.DestroyAllData(entity);
 		}
 
 		public async Task<string> DestroyData(ShippingAddress entity)
 		{
-			return await _repository.DestroyData(entity);
+			return await _shippingAddressRepository.DestroyData(entity);
 		}
 
 		public async Task<IEnumerable<ShippingAddress>> GetAll()
 		{
-			return await _repository.GetAll();
+			return await _shippingAddressRepository.GetAll();
 		}
 
 		public async Task<IEnumerable<ShippingAddress>> GetAllActive()
 		{
-			return await _repository.GetAllActive();
+			return await _shippingAddressRepository.GetAllActive();
 		}
 
 		public async Task<IEnumerable<ShippingAddress>> GetAllPassive()
 		{
-			return await _repository.GetAllPassive();
+			return await _shippingAddressRepository.GetAllPassive();
 		}
 
 		public async Task<ShippingAddress> GetById(int id)
 		{
-			return await _repository.GetById(id);
+			return await _shippingAddressRepository.GetById(id);
 		}
 
 		public async Task<IEnumerable<ShippingAddress>> GetByUserIdAddressList(int id)
 		{
-            var result = await _repository.GetAllActive();
+            var result = await _shippingAddressRepository.GetAllActive();
             if (result != null)
 			{
                 return result.Where(x => x.AppUserId == id);
@@ -69,7 +70,7 @@ namespace NTierECommerce.BLL.Concretes
 
         public async Task<ShippingAddress> GetByUserIdAndAddressId(int userId, int addressId)
         {
-			var result = await _repository.GetAllActive();
+			var result = await _shippingAddressRepository.GetAllActive();
 			if (result != null)
 			{
 				return result.FirstOrDefault(x => x.AppUserId == userId && x.Id == addressId);
@@ -79,12 +80,12 @@ namespace NTierECommerce.BLL.Concretes
 
         public async Task<string> IsActiveActive(ShippingAddress entity)
 		{
-			return await _repository.IsActiveActive(entity);
+			return await _shippingAddressRepository.IsActiveActive(entity);
 		}
 
 		public async Task<string> Update(ShippingAddress entity)
 		{
-			return await _repository.Update(entity);
+			return await _shippingAddressRepository.Update(entity);
 		}
 	}
 }

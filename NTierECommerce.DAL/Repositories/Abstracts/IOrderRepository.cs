@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NTierECommerce.BLL.Abstracts
+namespace NTierECommerce.DAL.Repositories.Abstracts
 {
-    public interface IShipperRepository:IRepository<Shipper>
+    public interface IOrderRepository:IBaseRepository<Order>
     {
-        Task<Shipper> GetByCompanyName(string companyName);
     }
 }

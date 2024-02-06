@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.BLL.Concretes;
+using NTierECommerce.DAL.Repositories.Abstracts;
+using NTierECommerce.DAL.Repositories.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +17,18 @@ namespace NTierECommerce.IOC.DependencyResolvers
         {
             //AddRepositories
 
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderDetailService, OrderDetailManager>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IShippingAddressService, ShippingAddressManager>();
             services.AddScoped<IShippingAddressRepository, ShippingAddressRepository>();
+            services.AddScoped<IShipperService, ShipperManager>();
             services.AddScoped<IShipperRepository, ShipperRepository>();
 
             return services;

@@ -14,12 +14,12 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly IOrderDetailRepository _orderDetailRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IProductRepository _productRepository;
+        private readonly IOrderService _orderRepository;
+        private readonly IOrderDetailService _orderDetailRepository;
+        private readonly ICategoryService _categoryRepository;
+        private readonly IProductService _productRepository;
 
-        public OrderController(IOrderRepository orderRepository,IOrderDetailRepository orderDetailRepository,ICategoryRepository categoryRepository, IProductRepository productRepository)
+        public OrderController(IOrderService orderRepository,IOrderDetailService orderDetailRepository,ICategoryService categoryRepository, IProductService productRepository)
         {
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;

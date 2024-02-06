@@ -1,4 +1,5 @@
 ﻿using NTierECommerce.BLL.Abstracts;
+using NTierECommerce.DAL.Repositories.Abstracts;
 using NTierECommerce.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,68 +9,68 @@ using System.Threading.Tasks;
 
 namespace NTierECommerce.BLL.Concretes
 {
-    public class ShipperRepository : IShipperRepository
+    public class ShipperManager : IShipperService
     {
-        private readonly IRepository<Shipper> _repository;
+        private readonly IShipperRepository _shipperRepository;
 
-        public ShipperRepository(IRepository<Shipper> repository)
+        public ShipperManager(IShipperRepository shipperRepository)
         {
-            _repository = repository;
+            _shipperRepository = shipperRepository;
         }
         public async Task<string> Create(Shipper entity)
         {
-            return await _repository.Create(entity);
+            return await _shipperRepository.Create(entity);
         }
 
         public async Task<string> Delete(Shipper entity)
         {
-            return await _repository.Delete(entity);
+            return await _shipperRepository.Delete(entity);
         }
 
         public async Task<string> DestroyAllData(List<Shipper> entity)
         {
-            return await _repository.DestroyAllData(entity);
+            return await _shipperRepository.DestroyAllData(entity);
         }
 
         public async Task<string> DestroyData(Shipper entity)
         {
-            return await _repository.DestroyData(entity);
+            return await _shipperRepository.DestroyData(entity);
         }
 
         public async Task<IEnumerable<Shipper>> GetAll()
         {
-            return await _repository.GetAll();
+            return await _shipperRepository.GetAll();
         }
 
         public async Task<IEnumerable<Shipper>> GetAllActive()
         {
-            return await _repository.GetAllActive();
+            return await _shipperRepository.GetAllActive();
         }
 
         public async Task<IEnumerable<Shipper>> GetAllPassive()
         {
-            return await _repository.GetAllPassive();
+            return await _shipperRepository.GetAllPassive();
         }
 
         public async Task<Shipper> GetByCompanyName(string companyName)
         {
-            var result = await _repository.GetAll();
+            var result = await _shipperRepository.GetAll();
             return result.FirstOrDefault(x=>x.CompanyName == companyName) ?? null;
         }
 
         public async Task<Shipper> GetById(int id)
         {
-            return await _repository.GetById(id);
+            return await _shipperRepository.GetById(id);
         }
 
         public async Task<string> IsActiveActive(Shipper entity)
         {
-            return await _repository.IsActiveActive(entity);
+            return await _shipperRepository.IsActiveActive(entity);
         }
 
         public async Task<string> Update(Shipper entity)
         {
-           return await _repository.Update(entity);
+           return await _shipperRepository.Update(entity);
         }
     }
 }

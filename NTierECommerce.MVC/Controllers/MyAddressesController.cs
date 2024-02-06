@@ -14,9 +14,9 @@ namespace NTierECommerce.MVC.Controllers
 	{
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-		private readonly IShippingAddressRepository _shippingAddressRepository;
+		private readonly IShippingAddressService _shippingAddressRepository;
 
-		public MyAddressesController(IMapper mapper,UserManager<AppUser> userManager,IShippingAddressRepository shippingAddressRepository)
+		public MyAddressesController(IMapper mapper,UserManager<AppUser> userManager,IShippingAddressService shippingAddressRepository)
         {
             _mapper = mapper;
             _userManager = userManager;

@@ -16,13 +16,13 @@ namespace NTierECommerce.MVC.Controllers
 	public class MyCartController : Controller
 	{
         private readonly IMapper _mapper;
-        private readonly IOrderRepository _orderRepository;
-		private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderService _orderRepository;
+		private readonly IOrderDetailService _orderDetailRepository;
 		private readonly UserManager<AppUser> _userManager;
-		private readonly IShippingAddressRepository _shippingAddressRepository;
-		private readonly IProductRepository _productRepository;
+		private readonly IShippingAddressService _shippingAddressRepository;
+		private readonly IProductService _productRepository;
 
-		public MyCartController(IMapper mapper, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, UserManager<AppUser> userManager, IShippingAddressRepository shippingAddressRepository, IProductRepository productRepository)
+		public MyCartController(IMapper mapper, IOrderService orderRepository, IOrderDetailService orderDetailRepository, UserManager<AppUser> userManager, IShippingAddressService shippingAddressRepository, IProductService productRepository)
 		{
             _mapper = mapper;
             _orderRepository = orderRepository;

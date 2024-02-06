@@ -17,10 +17,10 @@ namespace NTierECommerce.MVC.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categoryRepository;
-		private readonly IProductRepository _productRepository;
+        private readonly ICategoryService _categoryRepository;
+		private readonly IProductService _productRepository;
 
-		public HomeController(ILogger<HomeController> logger, IMapper mapper, ICategoryRepository categoryRepository, IProductRepository productRepository)
+		public HomeController(ILogger<HomeController> logger, IMapper mapper, ICategoryService categoryRepository, IProductService productRepository)
 		{
 			_logger = logger;
             _mapper = mapper;

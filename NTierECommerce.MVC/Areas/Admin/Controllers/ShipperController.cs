@@ -12,9 +12,9 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
     public class ShipperController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IShipperRepository _shipperRepository;
+        private readonly IShipperService _shipperRepository;
 
-        public ShipperController(IMapper mapper, IShipperRepository shipperRepository)
+        public ShipperController(IMapper mapper, IShipperService shipperRepository)
         {
             _mapper = mapper;
             _shipperRepository = shipperRepository;

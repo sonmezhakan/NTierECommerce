@@ -11,9 +11,9 @@ namespace NTierECommerce.MVC.Controllers
     public class ProductController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productRepository;
 
-        public ProductController(IMapper mapper, IProductRepository productRepository)
+        public ProductController(IMapper mapper, IProductService productRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;

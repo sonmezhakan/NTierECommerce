@@ -13,13 +13,13 @@ namespace NTierECommerce.MVC.Controllers
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IOrderRepository _orderRepository;
-        private readonly IShipperRepository _shipperRepository;
-        private readonly IOrderDetailRepository _orderDetailRepository;
-        private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IOrderService _orderRepository;
+        private readonly IShipperService _shipperRepository;
+        private readonly IOrderDetailService _orderDetailRepository;
+        private readonly IProductService _productRepository;
+        private readonly ICategoryService _categoryRepository;
 
-        public MyOrdersController(IMapper mapper, UserManager<AppUser> userManager,IOrderRepository orderRepository, IShipperRepository shipperRepository, IOrderDetailRepository orderDetailRepository, IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public MyOrdersController(IMapper mapper, UserManager<AppUser> userManager,IOrderService orderRepository, IShipperService shipperRepository, IOrderDetailService orderDetailRepository, IProductService productRepository, ICategoryService categoryRepository)
         {
             _mapper = mapper;
             _userManager = userManager;

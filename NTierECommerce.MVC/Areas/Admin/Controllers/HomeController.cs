@@ -11,11 +11,11 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderService _orderRepository;
+        private readonly IOrderDetailService _orderDetailRepository;
         private readonly UserManager<AppUser> _userManager;
 
-        public HomeController(IOrderRepository orderRepository,IOrderDetailRepository orderDetailRepository,UserManager<AppUser> userManager)
+        public HomeController(IOrderService orderRepository,IOrderDetailService orderDetailRepository,UserManager<AppUser> userManager)
         {
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;

@@ -14,10 +14,10 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 	[Authorize(Roles = "Admin")]
 	public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryService _categoryRepository;
         private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryRepository categoryRepository,IMapper mapper)
+        public CategoryController(ICategoryService categoryRepository,IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

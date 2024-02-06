@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NTierECommerce.BLL.Abstracts;
 using NTierECommerce.Common;
 using NTierECommerce.DAL.Context;
-using NTierECommerce.Entities.Base;
+using NTierECommerce.DAL.Repositories.Abstracts;
+using NTierECommerce.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-namespace NTierECommerce.BLL.Concretes
+
+namespace NTierECommerce.DAL.Repositories.Concretes
 {
-    public class BaseRepository<T> : IRepository<T> where T : BaseEntity
+    public class BaseRepository<T>:IBaseRepository<T> where T: class, IEntity<Guid>
     {
         private readonly ECommerceContext _context;
         private DbSet<T> _entities;
@@ -49,11 +49,11 @@ namespace NTierECommerce.BLL.Concretes
                 var original = await _entities.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
                 original.Status = Entities.Enums.DataStatus.Deleted;
-				original.UpdatedDate = DateTime.Now;
-				original.UpdatedIpAddress = IPAddressFinder.GetHostName();
-				original.UpdatedComputerName = Environment.MachineName;
+                original.UpdatedDate = DateTime.Now;
+                original.UpdatedIpAddress = IPAddressFinder.GetHostName();
+                original.UpdatedComputerName = Environment.MachineName;
 
-				original.IsActive = false;
+                original.IsActive = false;
                 _context.Entry(original).CurrentValues.SetValues(entity);
 
                 _context.SaveChanges();
@@ -128,11 +128,11 @@ namespace NTierECommerce.BLL.Concretes
             {
                 var original = await _entities.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-				original.Status = Entities.Enums.DataStatus.Updated;
-				original.UpdatedDate = DateTime.Now;
-				original.UpdatedIpAddress = IPAddressFinder.GetHostName();
-				original.UpdatedComputerName = Environment.MachineName;
-				original.IsActive = true;
+                original.Status = Entities.Enums.DataStatus.Updated;
+                original.UpdatedDate = DateTime.Now;
+                original.UpdatedIpAddress = IPAddressFinder.GetHostName();
+                original.UpdatedComputerName = Environment.MachineName;
+                original.IsActive = true;
                 _context.Entry(original).CurrentValues.SetValues(entity);
 
                 _context.SaveChanges();

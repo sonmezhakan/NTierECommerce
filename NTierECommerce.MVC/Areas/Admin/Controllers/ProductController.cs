@@ -19,11 +19,11 @@ namespace NTierECommerce.MVC.Areas.Admin.Controllers
 	[Authorize(Roles = "Admin")]
 	public class ProductController : Controller
 	{
-		private readonly IProductRepository _productRepository;
-		private readonly ICategoryRepository _categoryRepository;
+		private readonly IProductService _productRepository;
+		private readonly ICategoryService _categoryRepository;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository,IMapper mapper)
+        public ProductController(IProductService productRepository, ICategoryService categoryRepository,IMapper mapper)
 		{
 			_productRepository = productRepository;
 			_categoryRepository = categoryRepository;

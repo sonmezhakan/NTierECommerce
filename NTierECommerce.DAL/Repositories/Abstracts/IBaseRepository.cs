@@ -1,8 +1,14 @@
 ﻿using NTierECommerce.Entities.Base;
+using NTierECommerce.Entities.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NTierECommerce.BLL.Abstracts
+namespace NTierECommerce.DAL.Repositories.Abstracts
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IBaseRepository<T> where T : class,IEntity<Guid>
     {
         //List
         Task<IEnumerable<T>> GetAll(); //Ienumerable bir koleksiyon içinde farklı bir koleksiyonu teslim alı ve içerde kalan koleksiyonun değerlerini döngüye ihtiyaç duymadan teslim eder.
@@ -32,7 +38,5 @@ namespace NTierECommerce.BLL.Abstracts
 
         //IsActiveActive: Pasif yapılan nesneyi tekrardan aktifleştirme
         Task<string> IsActiveActive(T entity);
-
-        
     }
 }
