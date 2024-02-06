@@ -46,7 +46,12 @@ namespace NTierECommerce.BLL.Concretes
 			return await _repository.GetAllActive();
 		}
 
-		public async Task<IEnumerable<Order>> GetAllPassive()
+        public async Task<int> GetAllCount()
+        {
+			return _repository.GetAll().Result.Count();
+        }
+
+        public async Task<IEnumerable<Order>> GetAllPassive()
 		{
 			return await _repository.GetAllPassive();
 		}
@@ -75,7 +80,13 @@ namespace NTierECommerce.BLL.Concretes
 			return orderList.Where(x=>x.AppUserId == userId);
 		}
 
-		public Task<string> IsActiveActive(Order entity)
+        public async Task<int> GetMonthlyCount()
+        {
+            var getList = await _repository.GetAll();
+			return getList.Where(x=>x.OrderDate.Year == DateTime.Now.Year && x.OrderDate.Month == DateTime.Now.Month).Count();
+        }
+
+        public Task<string> IsActiveActive(Order entity)
 		{
 			return _repository.IsActiveActive(entity);
 		}

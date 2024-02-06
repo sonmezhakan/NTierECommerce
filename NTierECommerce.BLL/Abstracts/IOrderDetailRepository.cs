@@ -10,5 +10,8 @@ namespace NTierECommerce.BLL.Abstracts
 	public interface IOrderDetailRepository:IRepository<OrderDetail>
 	{
 		Task<IEnumerable<OrderDetail>> GetByIdList(int orderId);
+
+		Task<decimal> GetTotalEarning();
+		Task<decimal> GetByOrderIDTotalPrice(int orderId);
 	}
 }

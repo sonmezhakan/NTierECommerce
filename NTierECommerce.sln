@@ -8,23 +8,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.Entities", "NTierECommerce.Entities\NTierECommerce.Entities.csproj", "{6ACA70E1-6C6A-4D60-BD1E-1DC666CD832C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.Entities", "NTierECommerce.Entities\NTierECommerce.Entities.csproj", "{6ACA70E1-6C6A-4D60-BD1E-1DC666CD832C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.DAL", "NTierECommerce.DAL\NTierECommerce.DAL.csproj", "{9BEA21F2-476A-4C46-9706-3A01A3B58BC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.DAL", "NTierECommerce.DAL\NTierECommerce.DAL.csproj", "{9BEA21F2-476A-4C46-9706-3A01A3B58BC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.BLL", "NTierECommerce.BLL\NTierECommerce.BLL.csproj", "{FEB3D7FB-C118-4F70-9692-22D9A1153448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.BLL", "NTierECommerce.BLL\NTierECommerce.BLL.csproj", "{FEB3D7FB-C118-4F70-9692-22D9A1153448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.Common", "NTierECommerce.Common\NTierECommerce.Common.csproj", "{E6EB75B1-8792-473A-A0D5-947BC7306152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.Common", "NTierECommerce.Common\NTierECommerce.Common.csproj", "{E6EB75B1-8792-473A-A0D5-947BC7306152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.IOC", "NTierECommerce.IOC\NTierECommerce.IOC.csproj", "{D4A2550A-C57A-48FE-A0ED-D9003B8A0B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.IOC", "NTierECommerce.IOC\NTierECommerce.IOC.csproj", "{D4A2550A-C57A-48FE-A0ED-D9003B8A0B48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3F9D5C03-277E-4F76-8EFC-219A6AD5F21F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.Console", "NTierECommerce.Console\NTierECommerce.Console.csproj", "{2E7556EA-7BAD-4AEB-B11F-17D18B229608}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.MVC", "NTierECommerce.MVC\NTierECommerce.MVC.csproj", "{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierECommerce.API", "NTierECommerce.API\NTierECommerce.API.csproj", "{206A5098-D1CF-4B63-890F-F57B553A4055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierECommerce.MVC", "NTierECommerce.MVC\NTierECommerce.MVC.csproj", "{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,26 +48,16 @@ Global
 		{D4A2550A-C57A-48FE-A0ED-D9003B8A0B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A2550A-C57A-48FE-A0ED-D9003B8A0B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A2550A-C57A-48FE-A0ED-D9003B8A0B48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E7556EA-7BAD-4AEB-B11F-17D18B229608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E7556EA-7BAD-4AEB-B11F-17D18B229608}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E7556EA-7BAD-4AEB-B11F-17D18B229608}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E7556EA-7BAD-4AEB-B11F-17D18B229608}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20}.Release|Any CPU.Build.0 = Release|Any CPU
-		{206A5098-D1CF-4B63-890F-F57B553A4055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{206A5098-D1CF-4B63-890F-F57B553A4055}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{206A5098-D1CF-4B63-890F-F57B553A4055}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{206A5098-D1CF-4B63-890F-F57B553A4055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2E7556EA-7BAD-4AEB-B11F-17D18B229608} = {3F9D5C03-277E-4F76-8EFC-219A6AD5F21F}
 		{6AD098B4-F10E-4CCD-A99C-0F5ECD73AB20} = {3F9D5C03-277E-4F76-8EFC-219A6AD5F21F}
-		{206A5098-D1CF-4B63-890F-F57B553A4055} = {3F9D5C03-277E-4F76-8EFC-219A6AD5F21F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E30372B-1A0E-47CC-8B07-FA4028BB76FE}

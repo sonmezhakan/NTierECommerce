@@ -7,7 +7,8 @@ using NTierECommerce.MVC.Models.ViewModels.Category;
 using NTierECommerce.MVC.Models.ViewModels.MyCart;
 using NTierECommerce.MVC.Models.ViewModels.MyOrder;
 using NTierECommerce.MVC.Models.ViewModels.Product;
-
+using NTierECommerce.BLL.Abstracts;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace NTierECommerce.MVC.AutoMappers
 {
     public class MapperProfile:Profile
@@ -15,78 +16,67 @@ namespace NTierECommerce.MVC.AutoMappers
         public MapperProfile()
         {
             #region CategoryMapper
-            CreateMap<Category, CategoryVM>();
-            CreateMap<CategoryVM, Category>();
+            CreateMap<Category, CategoryVM>().ReverseMap();
 
-            CreateMap<Category, CategoryListVM>();
-            CreateMap<CategoryListVM, Category>();
+            CreateMap<Category, CategoryListVM>().ReverseMap();
 
-            CreateMap<Category, CategoryIndexListVM>();
-            CreateMap<CategoryIndexListVM, Category>();
+            CreateMap<Category, CategoryIndexListVM>().ReverseMap();
 
             #endregion
             #region ProductMapper
-            CreateMap<Product, ProductVM>();
-            CreateMap<ProductVM, Product>();
+            CreateMap<Product, ProductVM>().ReverseMap();
 
-            CreateMap<Product, ProductDetailVM>();
-            CreateMap<ProductDetailVM, Product>();
+            CreateMap<Product, ProductDetailVM>().ReverseMap();
 
-            CreateMap<Product, ProductIndexListVM>();
-            CreateMap<ProductIndexListVM, Product>();
+            CreateMap<Product, ProductIndexListVM>().ReverseMap();
 
-            CreateMap<Product, ProductDetailVM>();
-            CreateMap<ProductDetailVM, Product>();
+            CreateMap<Product, ProductDetailVM>().ReverseMap();
 
             #endregion
 
             #region OrderMapper
-            CreateMap<Order, MyOrderListVM>();
-            CreateMap<MyOrderListVM, Order>();
+            CreateMap<Order, MyOrderListVM>().ReverseMap();
+
             #endregion
 
             #region OrderDetailMapper
-            CreateMap<OrderDetail, OrderDetailVM>();
-            CreateMap<OrderDetailVM, OrderDetail>();
+            CreateMap<OrderDetail, OrderDetailVM>().ReverseMap();
 
-            CreateMap<OrderDetail, Cart>();
-            CreateMap<Cart, OrderDetail>();
+            CreateMap<OrderDetail, Cart>().ReverseMap();
+
             #endregion
 
             #region ShipperMapper
-            CreateMap<Shipper, ShipperVM>();
-            CreateMap<ShipperVM, Shipper>();
+            CreateMap<Shipper, ShipperVM>().ReverseMap();
+
             #endregion
 
             #region ShippingAddressMapper
-            CreateMap<ShippingAddress, ShippingAddressVM>();
-            CreateMap<ShippingAddressVM, ShippingAddress>();
+            CreateMap<ShippingAddress, ShippingAddressVM>().ReverseMap();
+
             #endregion
 
             #region AppUser
-            CreateMap<AppUser, LoginVM>();
-            CreateMap<LoginVM, AppUser>();
+            CreateMap<AppUser, LoginVM>().ReverseMap();
 
-            CreateMap<AppUser,UserRegisterVM>();
-            CreateMap<UserRegisterVM, AppUser>();
+            CreateMap<AppUser, UserRegisterVM>().ReverseMap();
 
-            CreateMap<AppUser, UserListVM>();
-            CreateMap<UserListVM, AppUser>();
+            CreateMap<AppUser, UserListVM>().ReverseMap();
 
-            CreateMap<AppUser, UserUpdateVM>();
-            CreateMap<UserUpdateVM, AppUser>();
+            CreateMap<AppUser, UserUpdateVM>().ReverseMap();
+
             #endregion
             #region AppUserRole
-            CreateMap<AppUserRole, AppUserRoleVM>();
-            CreateMap<AppUserRoleVM, AppUserRole>();
+            CreateMap<AppUserRole, AppUserRoleVM>().ReverseMap();
 
-            CreateMap<AppUserRole, AppUserRoleListVM>();
-            CreateMap<AppUserRoleListVM, AppUserRole>();
+            CreateMap<AppUserRole, AppUserRoleListVM>().ReverseMap();
+
             #endregion
             #region Cart
-            CreateMap<CartItem, Product>();
-            CreateMap<Product, CartItem>();
+            CreateMap<CartItem, Product>().ReverseMap();
+            
             #endregion
         }
     }
+    
 }

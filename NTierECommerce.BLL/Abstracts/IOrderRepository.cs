@@ -14,5 +14,9 @@ namespace NTierECommerce.BLL.Abstracts
 		Task<IEnumerable<Order>> GetByUserId(int userId);
 
 		Task<Order> GetByUserAndOrderId(int userId, int orderId);
+
+		Task<int> GetAllCount();
+		Task<int> GetMonthlyCount();
+		
 	}
 }
