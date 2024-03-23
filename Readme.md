@@ -57,9 +57,6 @@ In addition to the basic layers mentioned above, depending on your project, you 
 - .Net
 - MsSql
 - Asp.Net
-- AutoMapper
-- Bootstrap
-- Jquery
 
 ## Libraries
 
